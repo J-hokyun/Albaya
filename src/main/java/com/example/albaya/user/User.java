@@ -18,6 +18,6 @@ public class User {
 
     private String name;
     private int age;
-    private int joinDay;
-// hello
+    private int createdDate;
+    private int updatedDate;
 }
