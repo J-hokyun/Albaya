@@ -4,11 +4,12 @@ import com.example.albaya.enums.Role;
 import com.example.albaya.store.entity.Owner;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Table
@@ -16,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class User {
 
     @Id
@@ -32,6 +34,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Resume> resumeList = new ArrayList<>();
 
+    @Column(nullable = false)
+    private int age;
 
     @Column(length = 50, nullable = false)
     private String name;
@@ -42,6 +46,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -49,9 +54,10 @@ public class User {
     private List<LikeStore> likeStoreList = new ArrayList<>();
 
     @Column(nullable = false)
-    private Date created_date;
+    private LocalDateTime created_date;
 
-    private Date updated_date;
+    private LocalDateTime updated_date;
+
 
 
 }

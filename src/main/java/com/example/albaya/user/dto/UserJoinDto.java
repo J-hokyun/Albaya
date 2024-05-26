@@ -1,10 +1,14 @@
 package com.example.albaya.user.dto;
 
 
+import com.example.albaya.enums.Role;
+import com.example.albaya.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -25,5 +29,17 @@ public class UserJoinDto {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    public User toEntity(){
+        return User.builder()
+                .age(age)
+                .name(name)
+                .email(email)
+                .password(password)
+                .role(Role.USER)
+                .created_date(LocalDateTime.now())
+                .build();
+
     }
 }
