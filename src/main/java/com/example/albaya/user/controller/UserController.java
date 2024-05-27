@@ -1,5 +1,7 @@
 package com.example.albaya.user.controller;
 
+import com.example.albaya.user.dto.UserInformDto;
+import com.example.albaya.user.dto.UserLoginDto;
 import com.example.albaya.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
@@ -24,6 +26,19 @@ public class UserController {
     @PostMapping(value = "/join")
     public String userJoin(UserJoinDto joinDto){
         System.out.println(userService.join(joinDto));
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/login")
+    public String userLogin(Model model){
+        model.addAttribute("loginDto", new UserLoginDto());
+        return "user/login";
+    }
+
+    @PostMapping(value = "/login")
+    public String userLogin(UserLoginDto loginDto){
+        UserInformDto userInformDto = userService.login(loginDto);
+        System.out.println(userInformDto);
         return "redirect:/";
     }
 
