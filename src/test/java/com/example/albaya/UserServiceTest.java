@@ -1,6 +1,5 @@
 package com.example.albaya;
 
-import com.example.albaya.enums.Role;
 import com.example.albaya.user.dto.UserJoinDto;
 import com.example.albaya.user.entity.User;
 import com.example.albaya.user.repository.UserRepository;
@@ -10,10 +9,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 @SpringBootTest
 @Transactional
@@ -25,9 +23,12 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Test
     @DisplayName("User Login Test")
-    public void userLoginTest(){
+    public void userJoinTest(){
         UserJoinDto user_1 = UserJoinDto.builder()
                 .age(1)
                 .name("duplicate")
@@ -60,5 +61,20 @@ public class UserServiceTest {
         Assertions.assertThrows(IllegalStateException.class, () -> {
             userService.join(user_2);
         });
+    }
+
+    @Test
+    @DisplayName("User Login Test")
+    public void userLoginTest(){
+        UserJoinDto user_1 = UserJoinDto.builder()
+                .age(1)
+                .name("Login")
+                .password("aq123ftfa")
+                .email("Test@naver.com")
+                .build();
+        userService.join(user_1);
+
+        User findUser = userService.findUser("Test@naver.com");
+        Assertions.assertEquals(passwordEncoder.matches("aq123ftfa", findUser.getPassword()), true);
     }
 }

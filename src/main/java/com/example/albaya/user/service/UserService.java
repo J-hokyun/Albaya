@@ -5,6 +5,7 @@ import com.example.albaya.user.entity.User;
 import com.example.albaya.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +16,12 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public String join (UserJoinDto userJoinDto){
         validateDuplicateUser(userJoinDto.getEmail());
+        userJoinDto.setPassword(passwordEncoder.encode(userJoinDto.getPassword()));
         User user = userJoinDto.toEntity();
         userRepository.save(user);
         return user.getEmail();
