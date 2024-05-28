@@ -2,14 +2,19 @@ package com.example.albaya.user.entity;
 
 import com.example.albaya.enums.Role;
 import com.example.albaya.store.entity.Owner;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Table
@@ -18,7 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +34,7 @@ public class User {
     private Owner owner;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UserSchool> userSchoolList;
+    private List<UserSchool> userSchoolList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Resume> resumeList = new ArrayList<>();
@@ -59,5 +64,50 @@ public class User {
     private LocalDateTime updated_date;
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        return Collections.singletonList(new SimpleGrantedAuthority(role.name()));
+    }
 
+    @Override
+    public String getUsername(){
+        return this.email;
+    }
+
+    @Override
+    public String getPassword(){
+        return this.password;
+    }
+
+
+    @JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isAccountNonExpired(){
+        return true;
+    }
+
+    @JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isAccountNonLocked(){
+        return true;
+    }
+    @JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isCredentialsNonExpired(){
+        return true;
+    }
+
+    @JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isEnabled(){
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

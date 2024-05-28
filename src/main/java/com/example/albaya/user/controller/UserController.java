@@ -2,8 +2,12 @@ package com.example.albaya.user.controller;
 
 import com.example.albaya.user.dto.UserInformDto;
 import com.example.albaya.user.dto.UserLoginDto;
+import com.example.albaya.user.entity.User;
 import com.example.albaya.user.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import com.example.albaya.user.dto.UserJoinDto;
 import org.springframework.stereotype.Controller;
@@ -36,9 +40,16 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public String userLogin(UserLoginDto loginDto){
+    public String userLogin(UserLoginDto loginDto, HttpServletResponse response){
         UserInformDto userInformDto = userService.login(loginDto);
-        System.out.println(userInformDto);
+        String token = userInformDto.getToken();
+
+        Cookie cookie = new Cookie("X-AUTH-TOKEN", token);
+        cookie.setPath("/");
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+
         return "redirect:/";
     }
 

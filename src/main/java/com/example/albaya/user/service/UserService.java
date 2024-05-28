@@ -1,5 +1,6 @@
 package com.example.albaya.user.service;
 
+import com.example.albaya.config.JwtTokenProvider;
 import com.example.albaya.user.dto.UserInformDto;
 import com.example.albaya.user.dto.UserJoinDto;
 import com.example.albaya.user.dto.UserLoginDto;
@@ -20,6 +21,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private final JwtTokenProvider jwtTokenProvider;
+
     @Transactional
     public String join (UserJoinDto userJoinDto){
         validateDuplicateUser(userJoinDto.getEmail());
@@ -29,25 +32,22 @@ public class UserService {
         return user.getEmail();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public UserInformDto login(UserLoginDto userLoginDto){
         User findUser = userRepository.findByEmail(userLoginDto.getEmail()).orElse(null);
         UserInformDto userInformDto;
         if (findUser != null && passwordEncoder.matches(userLoginDto.getPassword(), findUser.getPassword())){
-            // JWT token 발행 로직 추가
              userInformDto = UserInformDto.builder()
                     .loginStatus(true)
                     .email(findUser.getEmail())
-                    .name(findUser.getName())
-                    .age(findUser.getAge())
-                    .token("qwerqwer")
+                     .name(findUser.getName())
+                    .token(jwtTokenProvider.createToken(findUser.getEmail(), findUser.getRole().name()))
                     .build();
         }else{
              userInformDto = UserInformDto.builder()
                     .loginStatus(false)
                     .build();
         }
-
         return userInformDto;
     }
 
