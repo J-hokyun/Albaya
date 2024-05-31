@@ -5,8 +5,25 @@
     <title>Albaya Home</title>
 </head>
 <body>
-    <a th:href="@{/page2}":>
-        <b>click</b>
-    </a>
+    <div th:if="${informDto.isLoginStatus()}">
+        <h1 th:text="${informDto.getName()}"></h1>
+    </div>
+    <table>
+        <tr>
+            <td>
+                <a th:href="@{/join}"> <b>회원가입</b></a>
+            </td>
+        </tr>
+        <tr th:if="${!informDto.isLoginStatus()}">
+            <td>
+                <a th:href="@{/login}"> <b>로그인</b></a>
+            </td>
+        </tr>
+        <tr th:if="${informDto.isLoginStatus()}">
+            <td>
+                <a th:href="@{/logout}"> <b>로그아웃</b></a>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
