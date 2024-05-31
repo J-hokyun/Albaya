@@ -17,7 +17,7 @@ public class LikeStore {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int like_id;
+    private Long like_id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

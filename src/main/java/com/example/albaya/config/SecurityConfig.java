@@ -1,6 +1,4 @@
 package com.example.albaya.config;
-
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +40,7 @@ public class SecurityConfig {
         http.logout((logout) -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true).deleteCookies("X-AUTH-TOKEN"));
+                        .invalidateHttpSession(true).deleteCookies("Bearer"));
         return http.build();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.albaya.user.controller;
 
+import com.example.albaya.user.dto.TokenDto;
 import com.example.albaya.user.dto.UserInformDto;
 import com.example.albaya.user.dto.UserLoginDto;
 import com.example.albaya.user.entity.User;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.security.Security;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,10 +45,9 @@ public class UserController {
 
     @PostMapping(value = "/login")
     public String userLogin(UserLoginDto loginDto, HttpServletResponse response){
-        UserInformDto userInformDto = userService.login(loginDto);
-        String token = userInformDto.getToken();
+        TokenDto tokenDto = userService.login(loginDto);
 
-        Cookie cookie = new Cookie("X-AUTH-TOKEN", token);
+        Cookie cookie = new Cookie("Bearer", tokenDto.getAccessToken());
         cookie.setPath("/");
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
@@ -52,8 +55,6 @@ public class UserController {
 
         return "redirect:/";
     }
-
-
 
     /**Exception**/
     @ExceptionHandler(IllegalStateException.class)

@@ -1,15 +1,16 @@
 package com.example.albaya.user.dto;
 
-import lombok.*;
 
-@Data
-@AllArgsConstructor
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Builder
-@NoArgsConstructor
-@ToString
+@AllArgsConstructor
 public class UserInformDto {
     private boolean loginStatus;
-    private String email;
-    private String token;
     private String name;
 }

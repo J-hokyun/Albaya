@@ -16,7 +16,7 @@ import java.util.Date;
 public class UserSchool {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int user_school_id;
+    private Long user_school_id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

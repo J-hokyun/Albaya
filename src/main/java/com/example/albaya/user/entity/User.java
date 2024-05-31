@@ -4,10 +4,7 @@ import com.example.albaya.enums.Role;
 import com.example.albaya.store.entity.Owner;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -18,7 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Table
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,7 +25,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int user_id;
+    private Long user_id;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id")
@@ -62,7 +60,6 @@ public class User implements UserDetails {
     private LocalDateTime created_date;
 
     private LocalDateTime updated_date;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
@@ -101,13 +98,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled(){
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", role=" + role +
-                '}';
     }
 }

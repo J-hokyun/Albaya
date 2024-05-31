@@ -18,7 +18,7 @@ public class Store {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int store_id;
+    private Long store_id;
 
     @ManyToOne
     @JoinColumn(name ="owner_id")
