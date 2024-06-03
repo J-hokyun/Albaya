@@ -65,13 +65,6 @@ public class UserService {
 
 
     /**검증 로직**/
-    private void validateDuplicateUser(String email){
-        User findUser = userRepository.findByEmail(email).orElse(null);
-        if (findUser != null){
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
-        }
-    }
-
     public JoinValidStatus UserJoinValid(UserJoinDto userJoinDto){
         JoinValidStatus joinValidStatus;
         int email_valid = emailCheck(userJoinDto.getEmail());

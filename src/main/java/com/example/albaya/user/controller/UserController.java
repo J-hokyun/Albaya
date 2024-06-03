@@ -62,16 +62,22 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public String userLogin(UserLoginDto loginDto, HttpServletResponse response){
+    public String userLogin(UserLoginDto loginDto, HttpServletResponse response, RedirectAttributes attr){
         TokenDto tokenDto = userService.login(loginDto);
 
-        Cookie cookie = new Cookie("Bearer", tokenDto.getAccessToken());
-        cookie.setPath("/");
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        response.addCookie(cookie);
+        if (tokenDto.getAccessToken() == null){
+            String msg = "등록된 아이디가 없거나 비밀번호가 틀립니다.";
+            attr.addFlashAttribute("msg", msg);
+            return "redirect:/login";
+        }else{
+            Cookie cookie = new Cookie("Bearer", tokenDto.getAccessToken());
+            cookie.setPath("/");
+            cookie.setSecure(true);
+            cookie.setHttpOnly(true);
+            response.addCookie(cookie);
+            return "redirect:/";
+        }
 
-        return "redirect:/";
     }
 
     @PostMapping("/emailCheck")
