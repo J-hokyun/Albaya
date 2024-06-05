@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="headerFragment">
+<div class="container-sm text-center">
+    <div class="row">
+        <div class="col-7">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo.png}" class="img-fluid"  width="200px" height ="120px">
+            </a>
+        </div>
+        <div class="col-1 d-flex align-items-center justify-content-center" th:if="${!informDto.isLoginStatus()}">
+            <a th:href="@{/join}"> <b>회원가입</b></a>
+        </div>
+
+        <div class="col-1 d-flex align-items-center justify-content-center" th:if="${!informDto.isLoginStatus()}">
+            <a th:href="@{/login}"> <b>로그인</b></a>
+        </div>
+
+        <div class="col-1 d-flex align-items-center justify-content-center" th:if="${informDto.isLoginStatus()}">
+            <b th:text="${informDto.getName()}">님</b>
+        </div>
+
+        <div class="col-1 d-flex align-items-center justify-content-center" th:if="${informDto.isLoginStatus()}">
+            <a th:href="@{/logout}"> <b>로그아웃</b></a>
+        </div>
+    </div>
+</div>
+</th:block>
+</html>
