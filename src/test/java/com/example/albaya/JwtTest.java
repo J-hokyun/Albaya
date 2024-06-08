@@ -52,8 +52,6 @@ public class JwtTest {
         Assertions.assertEquals(accessToken, foundRefreshToken.getAccessToken());
 
     }
-
-
     @Test
     @DisplayName("Delete refreshToken")
     public void deleteRefreshToken(){
@@ -67,16 +65,16 @@ public class JwtTest {
     }
 
     @Test
-    @DisplayName("Recreate access Token")
+    @DisplayName("Recreate AccessToken")
     public void recreateAccessToken(){
         User user = userRepository.findById(1L).orElse(null);
         String originAccessToken = jwtTokenProvider.createAccessToken(user.getEmail(), user.getRole().name());
-        String refreshToken =  jwtTokenProvider.createRefreshToken(user.getUser_id(), originAccessToken);
-        RefreshToken originRefreshToken = refreshTokenRepository.findByAccessToken(originAccessToken).orElse(null);
+        jwtTokenProvider.createRefreshToken(user.getUser_id(), originAccessToken);
 
-//
-//        String newAccessToken = jwtTokenProvider.reCreateAccessToken(originAccessToken);
-//        RefreshToken newRefreshToken = refreshTokenRepository.findByAccessToken(newAccessToken).orElse(null);
-//        Assertions.assertEquals(newAccessToken, newRefreshToken.getAccessToken());
+        RefreshToken refreshToken = jwtTokenProvider.getRefreshToken(originAccessToken);
+        String newAccessToken = jwtTokenProvider.reCreateAccessToken(originAccessToken, refreshToken);
+
+        Assertions.assertEquals(jwtTokenProvider.getUserEmail(originAccessToken), jwtTokenProvider.getUserEmail(newAccessToken));
+
     }
 }
