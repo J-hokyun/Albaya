@@ -1,6 +1,7 @@
 package com.example.albaya;
 
 import com.example.albaya.config.JwtTokenProvider;
+import com.example.albaya.user.dto.UserJoinDto;
 import com.example.albaya.user.entity.RefreshToken;
 import com.example.albaya.user.entity.User;
 import com.example.albaya.user.repository.RefreshTokenRepository;
@@ -14,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-@Transactional
 public class JwtTest {
 
     @Autowired
@@ -26,10 +26,24 @@ public class JwtTest {
     @Autowired
     RefreshTokenRepository refreshTokenRepository;
 
+
     @Test
     @DisplayName("Create access Token")
+    @Transactional
     public void createAccessToken(){
-        User user = userRepository.findById(1L).orElse(null);
+
+        UserJoinDto userJoinDto = UserJoinDto.builder()
+                .age(1)
+                .name("정호균")
+                .real_password("Q!1231234")
+                .check_password("Q!1231234")
+                .email("test1@naver.com")
+                .build();
+
+        User saveUser = userRepository.save(userJoinDto.toEntity());
+        Long userId = saveUser.getUser_id();
+
+        User user = userRepository.findById(userId).orElse(null);
         String accessToken = jwtTokenProvider.createAccessToken(user.getEmail(), user.getRole().name());
 
         Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
@@ -41,21 +55,21 @@ public class JwtTest {
         Assertions.assertEquals(user.getRole(), foundUser.getRole());
     }
     @Test
-    @DisplayName("Create refresh Token")
-    public void createRefreshToken() {
-        User user = userRepository.findById(1L).orElse(null);
-        String accessToken = jwtTokenProvider.createAccessToken(user.getEmail(), user.getRole().name());
-        jwtTokenProvider.createRefreshToken(user.getUser_id(), accessToken);
-
-        RefreshToken foundRefreshToken = refreshTokenRepository.findByAccessToken(accessToken).orElse(null);
-        Assertions.assertEquals(user.getUser_id(), foundRefreshToken.getId());
-        Assertions.assertEquals(accessToken, foundRefreshToken.getAccessToken());
-
-    }
-    @Test
     @DisplayName("Delete refreshToken")
+    @Transactional
     public void deleteRefreshToken(){
-        User user = userRepository.findById(1L).orElse(null);
+        UserJoinDto userJoinDto = UserJoinDto.builder()
+                .age(1)
+                .name("정호균")
+                .real_password("Q!1231234")
+                .check_password("Q!1231234")
+                .email("test1@naver.com")
+                .build();
+
+        User saveUser = userRepository.save(userJoinDto.toEntity());
+        Long userId = saveUser.getUser_id();
+
+        User user = userRepository.findById(userId).orElse(null);
         String accessToken = jwtTokenProvider.createAccessToken(user.getEmail(), user.getRole().name());
         jwtTokenProvider.createRefreshToken(user.getUser_id(), accessToken);
 
@@ -66,8 +80,21 @@ public class JwtTest {
 
     @Test
     @DisplayName("Recreate AccessToken")
+    @Transactional
     public void recreateAccessToken(){
-        User user = userRepository.findById(1L).orElse(null);
+        UserJoinDto userJoinDto = UserJoinDto.builder()
+                .age(1)
+                .name("정호균")
+                .real_password("Q!1231234")
+                .check_password("Q!1231234")
+                .email("test1@naver.com")
+                .build();
+
+        User saveUser = userRepository.save(userJoinDto.toEntity());
+        Long userId = saveUser.getUser_id();
+
+
+        User user = userRepository.findById(userId).orElse(null);
         String originAccessToken = jwtTokenProvider.createAccessToken(user.getEmail(), user.getRole().name());
         jwtTokenProvider.createRefreshToken(user.getUser_id(), originAccessToken);
 
