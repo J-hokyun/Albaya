@@ -82,6 +82,16 @@ public class UserServiceTest {
     @DisplayName("email Valid Test")
     public void emailValidTest(){
 
+        UserJoinDto userJoinDto = UserJoinDto.builder()
+                .age(1)
+                .name("정호균")
+                .real_password("Q!1231234")
+                .check_password("Q!1231234")
+                .email("test1@naver.com")
+                .build();
+
+        User saveUser = userRepository.save(userJoinDto.toEntity());
+
         String email_1 = "Test123@naver.com";
         String email_2 = "testnaver.com";
         String email_3 = "test@navercom";
