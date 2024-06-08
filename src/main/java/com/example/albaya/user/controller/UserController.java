@@ -36,7 +36,7 @@ public class UserController {
         JoinValidStatus joinValidStatus = userService.join(joinDto);
         String msg = "";
         if (joinValidStatus == JoinValidStatus.VALID){
-            msg = "회원가입이 완료 되었습니다. 로그인 이후 이용하여 주세요";
+            msg = "회원가입이 완료 되었습니다. 로그인 하여 주세요";
             attr.addFlashAttribute("msg", msg);
             return "redirect:/login";
         }else{
