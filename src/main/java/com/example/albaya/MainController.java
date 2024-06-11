@@ -7,6 +7,7 @@ import com.example.albaya.user.entity.User;
 import com.example.albaya.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.http.HttpStatus;
 
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
+    @Value("${naver.map.client-id}")
+    private String naverMapClientId;
+
     private final Logger logger = LoggerFactory.getLogger(MainController.class);
     @GetMapping("/healthcheck")
     public ResponseEntity healthCheck(){
@@ -40,6 +44,7 @@ public class MainController {
                     .build();
         }
         model.addAttribute("informDto", userInformDto);
+        model.addAttribute("naverMapClientId", naverMapClientId);
         return "home";
     }
 }
