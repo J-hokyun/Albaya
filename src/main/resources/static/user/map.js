@@ -19,7 +19,7 @@ function showPosition(position) {
         center: new naver.maps.LatLng(lat, lng),
         zoom: 15,
         maxZoom: 17,
-        minZoom: 13,
+        minZoom: 8,
         zoomControl: true,
         zoomControlOptions: {
             position: naver.maps.Position.TOP_RIGHT
@@ -39,7 +39,7 @@ function defaultPosition() {
         center: new naver.maps.LatLng(lat, lng),
         zoom: 15,
         maxZoom: 18,
-        minZoom: 13,
+        minZoom: 8,
         zoomControl: true,
         zoomControlOptions: {
             position: naver.maps.Position.TOP_RIGHT
