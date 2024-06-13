@@ -3,9 +3,11 @@ package com.example.albaya.store.entity;
 import com.example.albaya.enums.WorkType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -14,6 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class Store {
 
     @Id
@@ -30,29 +33,29 @@ public class Store {
     private String store_picture_url;
 
     @Column(nullable = false)
-    private String area_lat;
+    private double area_lat;
 
     @Column(nullable = false)
-    private String area_lang;
+    private double area_lng;
 
     @Column(nullable = false)
-    private String store_salary;
+    private int store_salary;
 
     @Column(nullable = false)
     private String work_days;
 
     @Column(nullable = false)
-    private LocalTime start_time;
+    private LocalDateTime start_time;
 
     @Column(nullable = false)
-    private LocalTime end_time;
+    private LocalDateTime end_time;
 
     @Enumerated(EnumType.STRING)
     private WorkType type;
 
     @Column(nullable = false)
-    private Date created_date;
+    private LocalDateTime created_date;
 
-    private Date updated_date;
+    private LocalDateTime updated_date;
 }
 
