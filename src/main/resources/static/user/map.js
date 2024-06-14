@@ -86,12 +86,14 @@ function getStore(map) {
         success: function(response) {
             console.log('get Store from backend :', response);
             clearMarkers();
+             clearStoreList();
             response.forEach(store => {
                 var marker = new naver.maps.Marker({
                     position: new naver.maps.LatLng(store.area_lat, store.area_lng),
                     map: map
                 });
                 markers.push(marker);
+                appendStoreToList(store);
             });
         },
         error: function(xhr, status, error) {
@@ -109,4 +111,32 @@ function addDragEventListener(map) {
 function clearMarkers() {
     markers.forEach(marker => marker.setMap(null));
     markers = [];
+}
+
+function clearStoreList() {
+    $('#store-list').empty();
+}
+
+function appendStoreToList(store) {
+    const storeItem = `
+        <div class="store-item" style="cursor: pointer;" onclick="goToDetail(${store.store_id})" onmouseover="changeBackgroundColor(this, true)" onmouseout="changeBackgroundColor(this, false)">
+            <img src="${'/resources/static/images/temp_store_logo.png'}" alt="${store.store_name}" style="width: 100%; height: auto;">
+            <h4>${store.store_name}</h4>
+            <p>${store.store_salary}</p>
+            <p>${store.work_days}</p>
+        </div>
+    `;
+    $('#store-list').append(storeItem);
+}
+
+function changeBackgroundColor(element, onHover) {
+    if (onHover) {
+        element.style.backgroundColor = '#f0f0f0'; // 호버 시 배경색 변경
+    } else {
+        element.style.backgroundColor = ''; // 마우스가 떠나면 원래대로
+    }
+}
+
+function goToDetail(storeId) {
+    window.location.href = `/detailStore/${storeId}`;
 }

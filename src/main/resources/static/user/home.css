@@ -1,0 +1,7 @@
+#store-list {
+    height: 800px; /* Adjust height as per your requirement */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Optional: Add border for visual separation */
+    padding: 10px; /* Optional: Add padding for content inside */
+    width: 100%;
+}

@@ -6,7 +6,6 @@ import com.example.albaya.store.dto.StoreFindResultDto;
 import com.example.albaya.store.dto.StoreSaveDto;
 import com.example.albaya.store.entity.Store;
 import com.example.albaya.store.repository.StoreRepository;
-import com.example.albaya.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +23,22 @@ public class StoreService {
     private final Logger logger = LoggerFactory.getLogger(StoreService.class);
 
     @Transactional
-    public void storeSave(StoreSaveDto storeSaveDto){
+    public Long saveStore(StoreSaveDto storeSaveDto){
         logger.info(storeSaveDto + "Save into Database");
         Store store = storeSaveDto.toEntity();
         storeRepository.save(store);
+
+        return store.getStore_id();
+    }
+
+    @Transactional(readOnly = true)
+    public StoreFindResultDto findStore(Long storeId){
+        logger.info("find storeId : " + storeId + " information");
+        Store store = storeRepository.findByStoreId(storeId).orElse(null);
+        StoreFindResultDto storeFindResultDto = new StoreFindResultDto().toDto(store);
+
+        return storeFindResultDto;
+
     }
 
 
@@ -44,17 +55,7 @@ public class StoreService {
 
         List<StoreFindResultDto> storeFindResultDtoList = new ArrayList<>();
         for (Store store : storeList){
-            StoreFindResultDto storeFindResultDto = StoreFindResultDto.builder()
-                    .store_name(store.getStore_name())
-                    .area_lat(store.getArea_lat())
-                    .area_lng(store.getArea_lng())
-                    .store_salary(store.getStore_salary())
-                    .work_days(store.getWork_days())
-                    .start_time(store.getStart_time())
-                    .end_time(store.getEnd_time())
-                    .type(store.getType())
-                    .build();
-            storeFindResultDtoList.add(storeFindResultDto);
+            storeFindResultDtoList.add(new StoreFindResultDto().toDto(store));
         }
         logger.info("result counting : " + storeFindResultDtoList.size());
         return storeFindResultDtoList;
