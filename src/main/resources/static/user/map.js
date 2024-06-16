@@ -26,7 +26,7 @@ function showPosition(position) {
     });
 
     getStore(map);
-    addDragEventListener(map);
+    addMapEventListeners(map);
 }
 
 // 기본 위치
@@ -46,7 +46,7 @@ function defaultPosition() {
     });
 
     getStore(map);
-    addDragEventListener(map);
+    addMapEventListeners(map);
 }
 
 // 위치 가져오기 실패 콜백 함수
@@ -101,8 +101,11 @@ function getStore(map) {
     });
 }
 
-function addDragEventListener(map) {
+function addMapEventListeners(map) {
     naver.maps.Event.addListener(map, "dragend", () => {
+        getStore(map);
+    });
+    naver.maps.Event.addListener(map, "zoom_changed", () => {
         getStore(map);
     });
 }
