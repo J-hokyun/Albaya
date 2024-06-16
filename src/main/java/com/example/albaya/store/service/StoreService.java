@@ -33,10 +33,9 @@ public class StoreService {
 
     @Transactional(readOnly = true)
     public StoreFindResultDto findStore(Long storeId){
-        logger.info("find storeId : " + storeId + " information");
         Store store = storeRepository.findByStoreId(storeId).orElse(null);
         StoreFindResultDto storeFindResultDto = new StoreFindResultDto().toDto(store);
-
+        logger.info("find storeId: " + storeId + " " + storeFindResultDto);
         return storeFindResultDto;
 
     }

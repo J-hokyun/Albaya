@@ -20,6 +20,7 @@ public class StoreFindResultDto {
     public double area_lat;
     public double area_lng;
     public int store_salary;
+    public String image_url;
     public String work_days;
     public LocalDateTime start_time;
     public LocalDateTime end_time;
@@ -33,6 +34,7 @@ public class StoreFindResultDto {
                 .area_lat(store.getArea_lat())
                 .area_lng(store.getArea_lng())
                 .store_salary(store.getStore_salary())
+                .image_url(store.getStore_picture_url())
                 .work_days(store.getWork_days())
                 .start_time(store.getStart_time())
                 .end_time(store.getEnd_time())

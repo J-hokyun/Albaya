@@ -2,7 +2,6 @@ let markers = [];
 
 // 지도 초기화 함수
 function initMap() {
-    // 사용자의 현재 위치 가져오기
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else {
@@ -86,14 +85,14 @@ function getStore(map) {
         success: function(response) {
             console.log('get Store from backend :', response);
             clearMarkers();
-             clearStoreList();
-            response.forEach(store => {
+            clearStoreList();
+            response.forEach((store, index) => {
                 var marker = new naver.maps.Marker({
                     position: new naver.maps.LatLng(store.area_lat, store.area_lng),
                     map: map
                 });
-                markers.push(marker);
-                appendStoreToList(store);
+                markers.push({marker: marker, storeId: store.store_id});
+                appendStoreToList(store, index);
             });
         },
         error: function(xhr, status, error) {
@@ -109,7 +108,7 @@ function addDragEventListener(map) {
 }
 
 function clearMarkers() {
-    markers.forEach(marker => marker.setMap(null));
+    markers.forEach(markerObj => markerObj.marker.setMap(null));
     markers = [];
 }
 
@@ -117,23 +116,31 @@ function clearStoreList() {
     $('#store-list').empty();
 }
 
-function appendStoreToList(store) {
+function appendStoreToList(store, index) {
     const storeItem = `
-        <div class="store-item" style="cursor: pointer;" onclick="goToDetail(${store.store_id})" onmouseover="changeBackgroundColor(this, true)" onmouseout="changeBackgroundColor(this, false)">
-            <img src="${'/resources/static/images/temp_store_logo.png'}" alt="${store.store_name}" style="width: 100%; height: auto;">
-            <h4>${store.store_name}</h4>
-            <p>${store.store_salary}</p>
-            <p>${store.work_days}</p>
+        <div class="row store-item" style="cursor: pointer;"
+            onmouseover="highlightMarker(${index}, true)"
+            onmouseout="highlightMarker(${index}, false)"
+            onclick="goToDetail(${store.store_id})">
+            <div class="col-6 store-image-container">
+                <img src="/images/${store.image_url}" alt="${store.store_name}" style="width: 100%; height: auto;" class="store-image">
+            </div>
+            <div class="col store-details">
+                <h4 class="store-name">${store.store_name}</h4>
+                <p class="store-salary">시급: ${store.store_salary}</p>
+                <p class="store-work-days">근무요일: ${store.work_days}</p>
+            </div>
         </div>
     `;
     $('#store-list').append(storeItem);
 }
 
-function changeBackgroundColor(element, onHover) {
+function highlightMarker(index, onHover) {
+    const markerObj = markers[index];
     if (onHover) {
-        element.style.backgroundColor = '#f0f0f0'; // 호버 시 배경색 변경
+        markerObj.marker.setAnimation(naver.maps.Animation.BOUNCE);
     } else {
-        element.style.backgroundColor = ''; // 마우스가 떠나면 원래대로
+        markerObj.marker.setAnimation(null);
     }
 }
 
