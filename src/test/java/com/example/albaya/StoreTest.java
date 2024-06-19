@@ -4,7 +4,6 @@ import com.example.albaya.enums.WorkType;
 import com.example.albaya.store.dto.CoordinateDto;
 import com.example.albaya.store.dto.StoreFindResultDto;
 import com.example.albaya.store.dto.StoreSaveDto;
-import com.example.albaya.store.entity.Store;
 import com.example.albaya.store.service.StoreService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

@@ -117,9 +117,9 @@ public class JwtTokenProvider {
 
 
     public String getUserEmail(String token) {
-        String info = Jwts.parserBuilder().setSigningKey(key).build()
+        String email = Jwts.parserBuilder().setSigningKey(key).build()
                 .parseClaimsJws(token).getBody().getSubject();
-        return info;
+        return email;
     }
 
     public String resolveToken(HttpServletRequest request) {

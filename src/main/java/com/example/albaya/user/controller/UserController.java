@@ -1,6 +1,8 @@
 package com.example.albaya.user.controller;
 
 import com.example.albaya.enums.JoinValidStatus;
+import com.example.albaya.exception.CustomException;
+import com.example.albaya.exception.ErrorCode;
 import com.example.albaya.user.dto.*;
 import com.example.albaya.user.entity.User;
 import com.example.albaya.user.service.UserService;
@@ -31,29 +33,27 @@ public class UserController {
         return "user/join";
     }
 
-    @PostMapping(value = "/join")
+    @PostMapping("/join")
     public String userJoin(UserJoinDto joinDto, RedirectAttributes attr) {
-        JoinValidStatus joinValidStatus = userService.join(joinDto);
-        String msg = "";
-        if (joinValidStatus == JoinValidStatus.VALID) {
-            msg = "회원가입이 완료 되었습니다. 로그인 하여 주세요";
-            attr.addFlashAttribute("msg", msg);
+        try {
+            userService.join(joinDto);
+            attr.addFlashAttribute("msg", "회원가입이 완료 되었습니다. 로그인 하여 주세요");
             return "redirect:/login";
-        } else {
-            if (joinValidStatus == JoinValidStatus.DUPLICATED_EMAIL) {
+        } catch (CustomException ex) {
+            String msg = "";
+            if (ex.getErrorCode() == ErrorCode.EMAIL_DUPLICATE) {
                 msg = "이미 존재하는 이메일 입니다.";
-            } else if (joinValidStatus == JoinValidStatus.EMAIL_NOT_VALID) {
+            } else if (ex.getErrorCode() == ErrorCode.INVALID_EMAIL) {
                 msg = "올바른 이메일을 입력하여 주세요";
-            } else if (joinValidStatus == JoinValidStatus.PASSWORD_NOT_VALID) {
+            } else if (ex.getErrorCode() == ErrorCode.INVALID_PASSWORD) {
                 msg = "비밀번호는 8~16자 영문, 숫자, 특수문자를 하나씩 사용하세요.";
             } else {
-                msg = "비밀번호가 일치하지 않습니다.";
+                msg = "회원가입 처리 중 오류가 발생했습니다.";
             }
             attr.addFlashAttribute("msg", msg);
             return "redirect:/join";
         }
     }
-
     @GetMapping(value = "/login")
     public String userLogin(Model model) {
         model.addAttribute("loginDto", new UserLoginDto());
@@ -82,7 +82,16 @@ public class UserController {
     @PostMapping("/emailCheck")
     @ResponseBody
     public int emailCheck(@RequestParam("email") String email) {
-        return userService.emailCheck(email);
+        try {
+            userService.validateEmail(email);
+            return 0;
+        } catch (CustomException ex) {
+            if (ex.getErrorCode() == ErrorCode.EMAIL_DUPLICATE) {
+                return 1;
+            }else{
+                return 2;
+            }
+        }
     }
 
     /**
