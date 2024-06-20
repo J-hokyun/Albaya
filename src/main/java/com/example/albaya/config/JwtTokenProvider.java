@@ -75,11 +75,11 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(Long.toString(id));
         Date now = new Date();
         String refreshToken =  Jwts.builder()
-                        .setClaims(claims)
-                        .setIssuedAt(now)
-                        .setExpiration(new Date(now.getTime() + refreshTokenExpTime))
-                        .signWith(key)
-                        .compact();
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + refreshTokenExpTime))
+                .signWith(key)
+                .compact();
 
         refreshTokenRepository.save(new RefreshToken(id, accessToken, refreshToken));
         return refreshToken;
@@ -117,9 +117,9 @@ public class JwtTokenProvider {
 
 
     public String getUserEmail(String token) {
-        String email = Jwts.parserBuilder().setSigningKey(key).build()
+        String info = Jwts.parserBuilder().setSigningKey(key).build()
                 .parseClaimsJws(token).getBody().getSubject();
-        return email;
+        return info;
     }
 
     public String resolveToken(HttpServletRequest request) {
@@ -138,9 +138,9 @@ public class JwtTokenProvider {
     public TokenValid validateToken(String token) {
         TokenValid tokenValid;
         try {
-           Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-           logger.info("Token is Valid");
-           tokenValid = TokenValid.VALID;
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            logger.info("Token is Valid");
+            tokenValid = TokenValid.VALID;
         } catch (ExpiredJwtException e) {
             logger.info("Token is TimeOut");
             tokenValid = TokenValid.TIMEOUT;

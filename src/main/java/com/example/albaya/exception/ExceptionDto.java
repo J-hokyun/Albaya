@@ -2,7 +2,6 @@ package com.example.albaya.exception;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Data
@@ -13,11 +12,11 @@ public class ExceptionDto {
     private String detail;
 
     public static ResponseEntity<ExceptionDto> toResponseEntity(CustomException ex){
-        ErrorCode errorCode = ex.getErrorCode();
+        StatusCode statusCode = ex.getStatusCode();
         String detail = ex.getDetail();
-        return ResponseEntity.status(errorCode.getStatus())
+        return ResponseEntity.status(statusCode.getStatus())
                 .body(ExceptionDto.builder()
-                        .msg(errorCode.getMessage())
+                        .msg(statusCode.getMessage())
                         .detail(detail)
                         .build());
     }

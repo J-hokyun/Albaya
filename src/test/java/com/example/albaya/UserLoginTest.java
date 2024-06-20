@@ -3,7 +3,7 @@ package com.example.albaya;
 
 import com.example.albaya.config.JwtTokenProvider;
 import com.example.albaya.exception.CustomException;
-import com.example.albaya.exception.ErrorCode;
+import com.example.albaya.exception.StatusCode;
 import com.example.albaya.user.dto.TokenDto;
 import com.example.albaya.user.dto.UserJoinDto;
 import com.example.albaya.user.dto.UserLoginDto;
@@ -70,7 +70,7 @@ public class UserLoginTest {
         CustomException exception = Assertions.assertThrows(CustomException.class, () ->{
             userService.login_2(userLoginDto);
         });
-        Assertions.assertEquals(ErrorCode.USER_EMAIL_NOT_FOUND, exception.getErrorCode());
+        Assertions.assertEquals(StatusCode.NOT_FOUND, exception.getStatusCode());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class UserLoginTest {
         CustomException exception = Assertions.assertThrows(CustomException.class, () ->{
             userService.login_2(userLoginDto);
         });
-        Assertions.assertEquals(ErrorCode.INVALID_PASSWORD, exception.getErrorCode());
+        Assertions.assertEquals(StatusCode.INVALID_PASSWORD, exception.getStatusCode());
     }
 
 }

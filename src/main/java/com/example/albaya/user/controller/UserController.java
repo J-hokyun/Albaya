@@ -1,24 +1,18 @@
 package com.example.albaya.user.controller;
 
-import com.example.albaya.enums.JoinValidStatus;
 import com.example.albaya.exception.CustomException;
-import com.example.albaya.exception.ErrorCode;
+import com.example.albaya.exception.StatusCode;
 import com.example.albaya.user.dto.*;
-import com.example.albaya.user.entity.User;
 import com.example.albaya.user.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.security.Security;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,11 +35,11 @@ public class UserController {
             return "redirect:/login";
         } catch (CustomException ex) {
             String msg = "";
-            if (ex.getErrorCode() == ErrorCode.EMAIL_DUPLICATE) {
+            if (ex.getStatusCode() == StatusCode.EMAIL_DUPLICATE) {
                 msg = "이미 존재하는 이메일 입니다.";
-            } else if (ex.getErrorCode() == ErrorCode.INVALID_EMAIL) {
+            } else if (ex.getStatusCode() == StatusCode.INVALID_EMAIL) {
                 msg = "올바른 이메일을 입력하여 주세요";
-            } else if (ex.getErrorCode() == ErrorCode.INVALID_PASSWORD) {
+            } else if (ex.getStatusCode() == StatusCode.INVALID_PASSWORD) {
                 msg = "비밀번호는 8~16자 영문, 숫자, 특수문자를 하나씩 사용하세요.";
             } else {
                 msg = "회원가입 처리 중 오류가 발생했습니다.";
@@ -86,7 +80,7 @@ public class UserController {
             userService.validateEmail(email);
             return 0;
         } catch (CustomException ex) {
-            if (ex.getErrorCode() == ErrorCode.EMAIL_DUPLICATE) {
+            if (ex.getStatusCode() == StatusCode.EMAIL_DUPLICATE) {
                 return 1;
             }else{
                 return 2;

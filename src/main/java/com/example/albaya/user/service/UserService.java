@@ -1,9 +1,8 @@
 package com.example.albaya.user.service;
 
 import com.example.albaya.config.JwtTokenProvider;
-import com.example.albaya.enums.JoinValidStatus;
 import com.example.albaya.exception.CustomException;
-import com.example.albaya.exception.ErrorCode;
+import com.example.albaya.exception.StatusCode;
 import com.example.albaya.user.dto.TokenDto;
 import com.example.albaya.user.dto.UserJoinDto;
 import com.example.albaya.user.dto.UserLoginDto;
@@ -12,8 +11,6 @@ import com.example.albaya.user.repository.RefreshTokenRepository;
 import com.example.albaya.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,11 +63,11 @@ public class UserService {
         log.info("Start User Login");
         if (findUser == null){
             log.error("USER_EMAIL_NOT_FOUND");
-            throw new CustomException(ErrorCode.USER_EMAIL_NOT_FOUND);
+            throw new CustomException(StatusCode.NOT_FOUND);
         }
         if (!passwordEncoder.matches(userLoginDto.getPassword(), findUser.getPassword())){
             log.error("USER_PASSWORD_MISMATCH");
-            throw new CustomException(ErrorCode.INVALID_PASSWORD);
+            throw new CustomException(StatusCode.INVALID_PASSWORD);
         }
         TokenDto tokenDto = TokenDto.builder()
                 .accessToken(jwtTokenProvider.createAccessToken(findUser.getEmail(), findUser.getRole().name()))
@@ -94,10 +91,10 @@ public class UserService {
 
         if (!matcher.matches()){
             log.error("INVALID_PASSWORD Exception");
-            throw new CustomException(ErrorCode.INVALID_PASSWORD);
+            throw new CustomException(StatusCode.INVALID_PASSWORD);
         }else if(!originPassword.equals(checkPassword)){
             log.error("INVALID_PASSWORD Exception");
-            throw new CustomException(ErrorCode.INVALID_PASSWORD);
+            throw new CustomException(StatusCode.INVALID_PASSWORD);
         }
     }
 
@@ -108,13 +105,13 @@ public class UserService {
 
         if (!matcher.matches()) {
             log.error("INVALID_EMAIL Exception");
-            throw new CustomException(ErrorCode.INVALID_EMAIL);
+            throw new CustomException(StatusCode.INVALID_EMAIL);
         }
 
         boolean result = userRepository.existsByEmail(email);
         if (result) {
             log.error("EMAIL_DUPLICATE Exception");
-            throw new CustomException(ErrorCode.EMAIL_DUPLICATE);
+            throw new CustomException(StatusCode.EMAIL_DUPLICATE);
         }
     }
 }

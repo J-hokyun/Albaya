@@ -1,17 +1,15 @@
 package com.example.albaya;
 
 import com.example.albaya.exception.CustomException;
-import com.example.albaya.exception.ErrorCode;
+import com.example.albaya.exception.StatusCode;
 import com.example.albaya.user.dto.UserJoinDto;
 import com.example.albaya.user.entity.User;
-import com.example.albaya.user.repository.UserRepository;
 import com.example.albaya.user.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -53,7 +51,7 @@ public class UserJoinTest {
         CustomException exception = Assertions.assertThrows(CustomException.class, () -> {
             userService.join(userJoinDto);
         });
-        Assertions.assertEquals(ErrorCode.INVALID_PASSWORD, exception.getErrorCode());
+        Assertions.assertEquals(StatusCode.INVALID_PASSWORD, exception.getStatusCode());
     }
 
     @Test
@@ -69,7 +67,7 @@ public class UserJoinTest {
         CustomException exception = Assertions.assertThrows(CustomException.class, () -> {
             userService.join(userJoinDto);
         });
-        Assertions.assertEquals(ErrorCode.INVALID_PASSWORD, exception.getErrorCode());
+        Assertions.assertEquals(StatusCode.INVALID_PASSWORD, exception.getStatusCode());
     }
 
 
@@ -88,7 +86,7 @@ public class UserJoinTest {
         CustomException exception = Assertions.assertThrows(CustomException.class, () -> {
             userService.join(userJoinDto);
         });
-        Assertions.assertEquals(ErrorCode.INVALID_EMAIL, exception.getErrorCode());
+        Assertions.assertEquals(StatusCode.INVALID_EMAIL, exception.getStatusCode());
     }
 
     @Test
@@ -107,7 +105,7 @@ public class UserJoinTest {
         CustomException exception = Assertions.assertThrows(CustomException.class, () -> {
             userService.validateEmail("test1234@naver.com");
         });
-        Assertions.assertEquals(ErrorCode.EMAIL_DUPLICATE, exception.getErrorCode());
+        Assertions.assertEquals(StatusCode.EMAIL_DUPLICATE, exception.getStatusCode());
     }
 
 
