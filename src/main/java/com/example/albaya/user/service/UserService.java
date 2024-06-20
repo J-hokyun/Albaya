@@ -24,7 +24,6 @@ import java.util.regex.Pattern;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final RefreshTokenRepository refreshTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
@@ -38,27 +37,7 @@ public class UserService {
         userRepository.save(user);
 
     }
-
-    @Transactional
     public TokenDto login(UserLoginDto userLoginDto){
-        User findUser = userRepository.findByEmail(userLoginDto.getEmail()).orElse(null);
-        TokenDto tokenDto;
-        if (findUser != null && passwordEncoder.matches(userLoginDto.getPassword(), findUser.getPassword())){
-                tokenDto = TokenDto.builder()
-                     .accessToken(jwtTokenProvider.createAccessToken(findUser.getEmail(), findUser.getRole().name()))
-                     .build();
-                String refreshToken = jwtTokenProvider.createRefreshToken(findUser.getUser_id(), tokenDto.getAccessToken());
-                log.info("email : " + findUser.getEmail() + "Login Success");
-                log.info("accessToken : " + tokenDto.getAccessToken());
-                log.info("refreshToken : " + refreshToken);
-        }else{
-                log.info("email : " + userLoginDto.getEmail() + "Login Failed");
-                tokenDto = TokenDto.builder().build();
-        }
-        return tokenDto;
-    }
-
-    public TokenDto login_2(UserLoginDto userLoginDto){
         User findUser = userRepository.findByEmail(userLoginDto.getEmail()).orElse(null);
         log.info("Start User Login");
         if (findUser == null){
@@ -69,6 +48,7 @@ public class UserService {
             log.error("USER_PASSWORD_MISMATCH");
             throw new CustomException(StatusCode.INVALID_PASSWORD);
         }
+
         TokenDto tokenDto = TokenDto.builder()
                 .accessToken(jwtTokenProvider.createAccessToken(findUser.getEmail(), findUser.getRole().name()))
                 .build();

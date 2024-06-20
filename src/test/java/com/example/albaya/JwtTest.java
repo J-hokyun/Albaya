@@ -26,30 +26,30 @@ public class JwtTest {
     @Autowired
     UserService userService;
 
-//    @Test
-//    @DisplayName("Recreate AccessToken Test")
-//    public void recreateAccessTokenTest(){
-//        UserJoinDto userJoinDto = UserJoinDto.builder()
-//                .age(1)
-//                .name("qwerqwer")
-//                .real_password("Q!12345678")
-//                .check_password("Q!12345678")
-//                .email("test1234@naver.com")
-//                .build();
-//        userService.join(userJoinDto);
-//
-//        UserLoginDto userLoginDto = UserLoginDto.builder()
-//                .email("test1234@naver.com")
-//                .password("Q!12345678")
-//                .build();
-//
-//        TokenDto tokenDto = userService.login_2(userLoginDto);
-//        RefreshToken refreshToken = jwtTokenProvider.getRefreshToken(tokenDto.getAccessToken());
-//        String newAccessToken = jwtTokenProvider.recreateAccessToken(refreshToken);
-//
-//        String emailToNewAccessToken = jwtTokenProvider.getUserEmail(newAccessToken);
-//
-//        Assertions.assertEquals(userLoginDto.getEmail(), emailToNewAccessToken);
-//    }
+    @Test
+    @DisplayName("Recreate AccessToken Test")
+    public void recreateAccessTokenTest(){
+        UserJoinDto userJoinDto = UserJoinDto.builder()
+                .age(1)
+                .name("qwerqwer")
+                .real_password("Q!12345678")
+                .check_password("Q!12345678")
+                .email("test1234@naver.com")
+                .build();
+        userService.join(userJoinDto);
+
+        UserLoginDto userLoginDto = UserLoginDto.builder()
+                .email("test1234@naver.com")
+                .password("Q!12345678")
+                .build();
+
+        TokenDto tokenDto = userService.login(userLoginDto);
+        RefreshToken refreshToken = jwtTokenProvider.getRefreshToken(tokenDto.getAccessToken());
+        String newAccessToken = jwtTokenProvider.reCreateAccessToken(tokenDto.getAccessToken(),refreshToken);
+
+        String emailToNewAccessToken = jwtTokenProvider.getUserEmail(newAccessToken);
+
+        Assertions.assertEquals(userLoginDto.getEmail(), emailToNewAccessToken);
+    }
 
 }

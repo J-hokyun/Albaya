@@ -31,12 +31,10 @@ public class MainController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserInformDto userInformDto;
         if (principal == "anonymousUser"){
-            logger.info("Login 되어 있지 않음");
             userInformDto = UserInformDto.builder()
                     .loginStatus(false)
                     .build();
         }else{
-            logger.info("Login 되어 있음");
             User user = (User)principal;
             userInformDto = UserInformDto.builder()
                     .loginStatus(true)

@@ -7,6 +7,7 @@ import com.example.albaya.user.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -16,8 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
-    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
 
@@ -56,21 +57,19 @@ public class UserController {
 
     @PostMapping(value = "/login")
     public String userLogin(UserLoginDto loginDto, HttpServletResponse response, RedirectAttributes attr) {
-        TokenDto tokenDto = userService.login(loginDto);
-
-        if (tokenDto.getAccessToken() == null) {
-            String msg = "등록된 아이디가 없거나 비밀번호가 틀립니다.";
-            attr.addFlashAttribute("msg", msg);
-            return "redirect:/login";
-        } else {
+        try{
+            TokenDto tokenDto =  userService.login(loginDto);
             Cookie cookie = new Cookie("Bearer", tokenDto.getAccessToken());
             cookie.setPath("/");
             cookie.setSecure(true);
             cookie.setHttpOnly(true);
             response.addCookie(cookie);
             return "redirect:/";
+        }catch (CustomException loginEx){
+            String msg = "등록된 아이디가 없거나 비밀번호가 틀립니다.";
+            attr.addFlashAttribute("msg", msg);
+            return "redirect:/login";
         }
-
     }
 
     @PostMapping("/emailCheck")

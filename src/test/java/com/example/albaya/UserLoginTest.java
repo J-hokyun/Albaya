@@ -42,7 +42,7 @@ public class UserLoginTest {
                 .password("Q!12345678")
                 .build();
 
-        TokenDto tokenDto = userService.login_2(userLoginDto);
+        TokenDto tokenDto = userService.login(userLoginDto);
         String email = jwtTokenProvider.getUserEmail(tokenDto.getAccessToken());
 
         Assertions.assertEquals("test1234@naver.com", email);
@@ -68,7 +68,7 @@ public class UserLoginTest {
                 .build();
 
         CustomException exception = Assertions.assertThrows(CustomException.class, () ->{
-            userService.login_2(userLoginDto);
+            userService.login(userLoginDto);
         });
         Assertions.assertEquals(StatusCode.NOT_FOUND, exception.getStatusCode());
     }
@@ -91,7 +91,7 @@ public class UserLoginTest {
                 .build();
 
         CustomException exception = Assertions.assertThrows(CustomException.class, () ->{
-            userService.login_2(userLoginDto);
+            userService.login(userLoginDto);
         });
         Assertions.assertEquals(StatusCode.INVALID_PASSWORD, exception.getStatusCode());
     }

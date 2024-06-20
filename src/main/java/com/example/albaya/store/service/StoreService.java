@@ -7,8 +7,7 @@ import com.example.albaya.store.dto.StoreSaveDto;
 import com.example.albaya.store.entity.Store;
 import com.example.albaya.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,14 +16,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StoreService {
 
     private final StoreRepository storeRepository;
-    private final Logger logger = LoggerFactory.getLogger(StoreService.class);
 
     @Transactional
     public Long saveStore(StoreSaveDto storeSaveDto){
-        logger.info(storeSaveDto + "Save into Database");
+        log.info(storeSaveDto + "Save into Database");
         Store store = storeSaveDto.toEntity();
         storeRepository.save(store);
 
@@ -35,7 +34,7 @@ public class StoreService {
     public StoreFindResultDto findStore(Long storeId){
         Store store = storeRepository.findByStoreId(storeId).orElse(null);
         StoreFindResultDto storeFindResultDto = new StoreFindResultDto().toDto(store);
-        logger.info("find storeId: " + storeId + " " + storeFindResultDto);
+        log.info("find storeId: " + storeId + " " + storeFindResultDto);
         return storeFindResultDto;
 
     }
@@ -44,7 +43,7 @@ public class StoreService {
 
     @Transactional
     public List<StoreFindResultDto> findStoresWithinBounds(CoordinateDto coordinateDto) {
-        logger.info("find store in " + coordinateDto);
+        log.info("find store in " + coordinateDto);
         List<Store> storeList = storeRepository.findStoresWithinBounds(
                 coordinateDto.getNorthEastLat(),
                 coordinateDto.getNorthEastLng(),
@@ -56,7 +55,7 @@ public class StoreService {
         for (Store store : storeList){
             storeFindResultDtoList.add(new StoreFindResultDto().toDto(store));
         }
-        logger.info("result counting : " + storeFindResultDtoList.size());
+        log.info("result counting : " + storeFindResultDtoList.size());
         return storeFindResultDtoList;
     }
 
