@@ -44,6 +44,7 @@
     </style>
 </head>
 <body>
+<div th:if="${msg}" class="alert alert-danger" th:text="${msg}"></div>
 <div class="login-container">
     <h1>알바야 시작하기</h1>
     <p>알바야와 함께 근처 아르바이트를 찾아보세요!</p>
@@ -77,11 +78,18 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
         $(document).ready(function() {
-        let message = "[[${msg}]]";
-        if (message != "") {
-            alert(message);
-        }
-            });
+            let message = "[[${msg}]]";
+            if (message != "") {
+                alert(message);
+            }
+        });
+
+        $(document).ready(function() {
+            let message = "[[${msg_2}]]";
+            if (message != "") {
+                alert(message);
+            }
+        });
 </script>
 </body>
 </html>

@@ -1,0 +1,52 @@
+#store-list {
+    height: 800px; /* Adjust height as per your requirement */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden;
+    border: 1px solid #ccc; /* Optional: Add border for visual separation */
+    padding: 10px; /* Optional: Add padding for content inside */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.store-item {
+    display: flex;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    transition: background-color 0.3s;
+    overflow: hidden;
+}
+
+.store-item:hover {
+    background-color: #f5f5f5;
+}
+
+.store-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.store-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.store-details {
+    padding-left: 10px;
+    box-sizing: border-box; /* Ensure padding is included in the element's total width */
+    width: 100%; /* Ensure the details container takes up the full width of its column */
+}
+
+.store-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.store-salary, .store-work-days {
+    font-size: 14px;
+    color: #757575;
+}
