@@ -47,10 +47,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authentication);
 
                 } catch (CustomException refreshTokenEx) {
-                    log.error("refreshToken is timeout or error user should login again");
-                    jwtTokenProvider.removeRefreshToken(accessToken);
-                    response.sendRedirect("/logout");
-                    return;
+                    if (refreshTokenEx.getStatusCode() == StatusCode.TOKEN_EXPIRED){
+                        log.error("refreshToken is timeout user should login again");
+                        jwtTokenProvider.removeRefreshToken(accessToken);
+                        response.sendRedirect("/logout");
+                        return;
+                    }
                 }
             }else if(accessTokenEx.getStatusCode() == StatusCode.NOT_FOUND){
                 log.info("user before login");
