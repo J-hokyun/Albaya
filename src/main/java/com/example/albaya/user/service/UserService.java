@@ -61,6 +61,12 @@ public class UserService {
     }
 
 
+    public User findUser(Long userId){
+        return userRepository.findById(userId).orElse(null);
+    }
+
+
+
 
 
     /**검증 로직**/

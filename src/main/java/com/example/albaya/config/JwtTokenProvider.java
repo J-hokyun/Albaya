@@ -69,23 +69,29 @@ public class JwtTokenProvider {
         return token;
     }
 
-    public String createRefreshToken(Long id, String accessToken){
-        Claims claims = Jwts.claims().setSubject(Long.toString(id));
-        Date now = new Date();
-        String refreshToken =  Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + refreshTokenExpTime))
-                .signWith(key)
-                .compact();
-
-        refreshTokenRepository.save(new RefreshToken(id, accessToken, refreshToken));
+    public String createRefreshToken(Long userId, String accessToken){
+            log.info("create refreshToken");
+            Claims claims = Jwts.claims().setSubject(Long.toString(userId));
+            Date now = new Date();
+            String refreshToken =  Jwts.builder()
+                    .setClaims(claims)
+                    .setIssuedAt(now)
+                    .setExpiration(new Date(now.getTime() + refreshTokenExpTime))
+                    .signWith(key)
+                    .compact();
+            refreshTokenRepository.save(new RefreshToken(userId, accessToken, refreshToken));
         return refreshToken;
     }
 
     @Transactional(readOnly = true)
     public RefreshToken getRefreshToken(String accessToken){
         RefreshToken refreshToken = refreshTokenRepository.findByAccessToken(accessToken).orElse(null);
+        return refreshToken;
+    }
+
+    @Transactional(readOnly = true)
+    public RefreshToken getRefreshToken(Long userId){
+        RefreshToken refreshToken = refreshTokenRepository.findById(userId).orElse(null);
         return refreshToken;
     }
 

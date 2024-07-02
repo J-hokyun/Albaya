@@ -51,5 +51,4 @@ public class JwtTest {
 
         Assertions.assertEquals(userLoginDto.getEmail(), emailToNewAccessToken);
     }
-
 }

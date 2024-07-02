@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
@@ -27,9 +28,13 @@ public class MainController {
         return new ResponseEntity(HttpStatus.OK);
     }
     @GetMapping("/")
-    public String home(Model model){
+    public String home(@RequestParam(value = "logoutSuccess", required = false)String logoutSuccess, Model model){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserInformDto userInformDto;
+        if (logoutSuccess != null) {
+            model.addAttribute("logoutMessage", "로그아웃 되었습니다.");
+        }
+
         if (principal == "anonymousUser"){
             userInformDto = UserInformDto.builder()
                     .loginStatus(false)

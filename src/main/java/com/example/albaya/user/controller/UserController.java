@@ -55,6 +55,15 @@ public class UserController {
         return "user/login";
     }
 
+    @GetMapping(value = "/expired")
+    public String expired(RedirectAttributes attr, Model model){
+        log.info("expired controller");
+        String msg_2 = "세션이 만료되었습니다. 다시 로그인 하여 주세요";
+        model.addAttribute("loginDto", new UserLoginDto());
+        attr.addFlashAttribute("msg_2", msg_2);
+        return "user/login";
+    }
+
     @PostMapping(value = "/login")
     public String userLogin(UserLoginDto loginDto, HttpServletResponse response, RedirectAttributes attr) {
         try{
