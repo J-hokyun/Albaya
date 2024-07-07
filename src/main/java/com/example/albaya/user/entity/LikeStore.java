@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Table
@@ -17,7 +18,8 @@ public class LikeStore {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long like_id;
+    @Column(name = "like_id")
+    private Long likeId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -27,8 +29,9 @@ public class LikeStore {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @Column(nullable = false)
-    private Date created_date;
+    @Column(nullable = false, name = "created_date")
+    private LocalDateTime createdDate;
 
-    private Date updated_date;
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
 }

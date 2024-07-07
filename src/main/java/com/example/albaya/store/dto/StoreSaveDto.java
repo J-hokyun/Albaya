@@ -1,17 +1,13 @@
 package com.example.albaya.store.dto;
 
-import com.example.albaya.enums.Role;
 import com.example.albaya.enums.WorkType;
 import com.example.albaya.store.entity.Store;
-import com.example.albaya.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -19,27 +15,27 @@ import java.util.Date;
 @ToString
 public class StoreSaveDto {
 
-    private String store_name;
-    private double area_lat;
-    private double area_lng;
-    private int store_salary;
-    private String work_days;
-    private LocalDateTime start_time;
-    private LocalDateTime end_time;
+    private String storeName;
+    private double areaLat;
+    private double areaLng;
+    private int storeSalary;
+    private String workDays;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private WorkType type;
 
 
     public Store toEntity(){
         return Store.builder()
-                .store_name(store_name)
-                .area_lat(area_lat)
-                .area_lng(area_lng)
-                .store_salary(store_salary)
-                .work_days(work_days)
-                .start_time(start_time)
-                .end_time(end_time)
+                .storeName(storeName)
+                .areaLat(areaLat)
+                .areaLng(areaLng)
+                .storeSalary(storeSalary)
+                .workDays(workDays)
+                .startTime(startTime)
+                .endTime(endTime)
                 .type(type)
-                .created_date(LocalDateTime.now())
+                .createdDate(LocalDateTime.now())
                 .build();
 
     }

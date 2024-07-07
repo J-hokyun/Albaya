@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,8 +30,9 @@ public class Owner {
     @Enumerated(EnumType.STRING)
     private Permit permit;
 
-    @Column(nullable = false)
-    private Date created_date;
+    @Column(nullable = false, name = "created_date")
+    private Date createdDate;
 
-    private Date updated_date;
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
 }

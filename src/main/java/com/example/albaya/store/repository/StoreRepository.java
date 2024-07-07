@@ -13,8 +13,8 @@ import java.util.Optional;
 public interface StoreRepository extends JpaRepository<Store, Long> {
 
     @Query("SELECT s FROM Store s " +
-            "WHERE s.area_lat BETWEEN :southWestLat AND :northEastLat " +
-            "AND s.area_lng BETWEEN :southWestLng AND :northEastLng")
+            "WHERE s.areaLat BETWEEN :southWestLat AND :northEastLat " +
+            "AND s.areaLng BETWEEN :southWestLng AND :northEastLng")
     List<Store> findStoresWithinBounds(
             @Param("northEastLat") double northEastLat,
             @Param("northEastLng") double northEastLng,
@@ -22,7 +22,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
             @Param("southWestLng") double southWestLng
     );
     @Query("SELECT s FROM Store s " +
-            "WHERE s.store_id = :storeId")
+            "WHERE s.storeId = :storeId")
     Optional<Store> findByStoreId(@Param("storeId")Long storeId);
 
 }

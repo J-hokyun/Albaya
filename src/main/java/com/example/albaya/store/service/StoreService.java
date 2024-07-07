@@ -27,7 +27,7 @@ public class StoreService {
         Store store = storeSaveDto.toEntity();
         storeRepository.save(store);
 
-        return store.getStore_id();
+        return store.getStoreId();
     }
 
     @Transactional(readOnly = true)

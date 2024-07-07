@@ -25,7 +25,8 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id")
@@ -56,10 +57,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LikeStore> likeStoreList = new ArrayList<>();
 
-    @Column(nullable = false)
-    private LocalDateTime created_date;
+    @Column(nullable = false, name = "created_date")
+    private LocalDateTime createdDate;
 
-    private LocalDateTime updated_date;
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){

@@ -26,55 +26,55 @@ public class StoreTest {
     @DisplayName("Find Store Test using storeId")
     public void findStoreUsingStoreId(){
         StoreSaveDto storeSaveDto_1 = StoreSaveDto.builder()
-                .store_name("store_test1")
-                .area_lat(37.0600000)
-                .area_lng(127.0500000)
-                .store_salary(2000)
-                .work_days("월-화")
-                .start_time(LocalDateTime.now())
-                .end_time(LocalDateTime.now())
+                .storeName("store_test1")
+                .areaLat(37.0600000)
+                .areaLng(127.0500000)
+                .storeSalary(2000)
+                .workDays("월-화")
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now())
                 .type(WorkType.PART)
                 .build();
 
         Long storeId = storeService.saveStore(storeSaveDto_1);
 
         StoreFindResultDto findResultDto = storeService.findStore(storeId);
-        Assertions.assertEquals(storeId, findResultDto.getStore_id());
+        Assertions.assertEquals(storeId, findResultDto.getStoreId());
     }
 
     @Test
     @DisplayName("Find store test within bound")
     public void findStoreTestWithinBounder(){
         StoreSaveDto storeSaveDto_1 = StoreSaveDto.builder()
-                .store_name("store_test1")
-                .area_lat(37.0600000)
-                .area_lng(127.0500000)
-                .store_salary(2000)
-                .work_days("월-화")
-                .start_time(LocalDateTime.now())
-                .end_time(LocalDateTime.now())
+                .storeName("store_test1")
+                .areaLat(37.0600000)
+                .areaLng(127.0500000)
+                .storeSalary(2000)
+                .workDays("월-화")
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now())
                 .type(WorkType.PART)
                 .build();
 
         StoreSaveDto storeSaveDto_2 = StoreSaveDto.builder()
-                .store_name("store_test2")
-                .area_lat(37.0700000)
-                .area_lng(127.0700000)
-                .store_salary(2000)
-                .work_days("월-화")
-                .start_time(LocalDateTime.now())
-                .end_time(LocalDateTime.now())
+                .storeName("store_test2")
+                .areaLat(37.0700000)
+                .areaLng(127.0700000)
+                .storeSalary(2000)
+                .workDays("월-화")
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now())
                 .type(WorkType.PART)
                 .build();
 
         StoreSaveDto storeSaveDto_3 = StoreSaveDto.builder()
-                .store_name("store_test3")
-                .area_lat(37.0792107)
-                .area_lng(127.0700000)
-                .store_salary(2000)
-                .work_days("월-화")
-                .start_time(LocalDateTime.now())
-                .end_time(LocalDateTime.now())
+                .storeName("store_test3")
+                .areaLat(37.0792107)
+                .areaLng(127.0700000)
+                .storeSalary(2000)
+                .workDays("월-화")
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now())
                 .type(WorkType.PART)
                 .build();
 

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Table
@@ -15,7 +16,8 @@ import java.util.Date;
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long resume_id;
+    @Column(name = "resume_id")
+    private Long resumeId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -24,9 +26,10 @@ public class Resume {
     @Column(columnDefinition = "TEXT")
     private String introduce;
 
-    @Column(nullable = false)
-    private Date created_date;
+    @Column(nullable = false, name = "created_date")
+    private LocalDateTime createdDate;
 
-    private Date updated_date;
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
 
 }

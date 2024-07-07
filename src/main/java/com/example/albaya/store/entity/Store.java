@@ -8,10 +8,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-@Table
+@Table(name = "store")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,41 +21,44 @@ public class Store {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long store_id;
+    @Column(name = "store_id")
+    private Long storeId;
 
     @ManyToOne
     @JoinColumn(name ="owner_id")
     private Owner owner;
 
-    @Column(length = 100, nullable = false)
-    private String store_name;
+    @Column(length = 100, nullable = false, name = "store_name")
+    private String storeName;
 
-    private String store_picture_url;
+    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<StorePictureUrl> storePictureUrlList = new ArrayList<>();
 
-    @Column(nullable = false)
-    private double area_lat;
+    @Column(nullable = false, name = "area_lat")
+    private double areaLat;
 
-    @Column(nullable = false)
-    private double area_lng;
+    @Column(nullable = false, name = "area_lng")
+    private double areaLng;
 
-    @Column(nullable = false)
-    private int store_salary;
+    @Column(nullable = false, name = "store_salary")
+    private int storeSalary;
 
-    @Column(nullable = false)
-    private String work_days;
+    @Column(nullable = false, name = "work_days")
+    private String workDays;
 
-    @Column(nullable = false)
-    private LocalDateTime start_time;
+    @Column(nullable = false, name = "start_time")
+    private LocalDateTime startTime;
 
-    @Column(nullable = false)
-    private LocalDateTime end_time;
+    @Column(nullable = false, name = "end_time")
+    private LocalDateTime endTime;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "type")
     private WorkType type;
 
-    @Column(nullable = false)
-    private LocalDateTime created_date;
+    @Column(nullable = false, name = "created_date")
+    private LocalDateTime createdDate;
 
-    private LocalDateTime updated_date;
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
 }
-

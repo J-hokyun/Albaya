@@ -2,10 +2,10 @@ package com.example.albaya.store.dto;
 
 import com.example.albaya.enums.WorkType;
 import com.example.albaya.store.entity.Store;
+import com.example.albaya.store.entity.StorePictureUrl;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,29 +15,29 @@ import java.util.List;
 @Builder
 @ToString
 public class StoreFindResultDto {
-    public Long store_id;
-    public String store_name;
-    public double area_lat;
-    public double area_lng;
-    public int store_salary;
-    public String image_url;
-    public String work_days;
-    public LocalDateTime start_time;
-    public LocalDateTime end_time;
+    public Long storeId;
+    public String storeName;
+    public double areaLat;
+    public double areaLng;
+    public int storeSalary;
+    public List<StorePictureUrl> storePictureUrlList;
+    public String workDays;
+    public LocalDateTime startTime;
+    public LocalDateTime endTime;
     public WorkType type;
 
 
     public StoreFindResultDto toDto(Store store){
         return   StoreFindResultDto.builder()
-                .store_id(store.getStore_id())
-                .store_name(store.getStore_name())
-                .area_lat(store.getArea_lat())
-                .area_lng(store.getArea_lng())
-                .store_salary(store.getStore_salary())
-                .image_url(store.getStore_picture_url())
-                .work_days(store.getWork_days())
-                .start_time(store.getStart_time())
-                .end_time(store.getEnd_time())
+                .storeId(store.getStoreId())
+                .storeName(store.getStoreName())
+                .areaLat(store.getAreaLat())
+                .areaLng(store.getAreaLng())
+                .storeSalary(store.getStoreSalary())
+                .storePictureUrlList(store.getStorePictureUrlList())
+                .workDays(store.getWorkDays())
+                .startTime(store.getStartTime())
+                .endTime(store.getEndTime())
                 .type(store.getType())
                 .build();
     }

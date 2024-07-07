@@ -25,9 +25,9 @@ public class UserJoinDto {
 
     @NotBlank(message = "비밀번호를 입력해주세요")
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
-    private String real_password;
+    private String realPassword;
 
-    private String check_password;
+    private String checkPassword;
 
 
     @NotBlank(message = "이름을 입력해주세요.")
@@ -41,8 +41,8 @@ public class UserJoinDto {
     public String toString() {
         return "UserJoinDto{" +
                 "email='" + email + '\'' +
-                ", real_password='" + real_password + '\'' +
-                ", check_password='" + check_password + '\'' +
+                ", real_password='" + realPassword + '\'' +
+                ", check_password='" + checkPassword + '\'' +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 '}';
@@ -53,9 +53,9 @@ public class UserJoinDto {
                 .age(age)
                 .name(name)
                 .email(email)
-                .password(real_password)
+                .password(realPassword)
                 .role(Role.USER)
-                .created_date(LocalDateTime.now())
+                .createdDate(LocalDateTime.now())
                 .build();
 
     }

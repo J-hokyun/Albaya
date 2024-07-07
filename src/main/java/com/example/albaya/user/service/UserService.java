@@ -7,7 +7,6 @@ import com.example.albaya.user.dto.TokenDto;
 import com.example.albaya.user.dto.UserJoinDto;
 import com.example.albaya.user.dto.UserLoginDto;
 import com.example.albaya.user.entity.User;
-import com.example.albaya.user.repository.RefreshTokenRepository;
 import com.example.albaya.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +29,9 @@ public class UserService {
     public void join (UserJoinDto userJoinDto){
         log.info("User Join Service : {}", userJoinDto);
         validateEmail(userJoinDto.getEmail());
-        validatePassword(userJoinDto.getReal_password(), userJoinDto.getCheck_password());
+        validatePassword(userJoinDto.getRealPassword(), userJoinDto.getCheckPassword());
 
-        userJoinDto.setReal_password(passwordEncoder.encode(userJoinDto.getReal_password()));
+        userJoinDto.setRealPassword(passwordEncoder.encode(userJoinDto.getRealPassword()));
         User user = userJoinDto.toEntity();
         userRepository.save(user);
 
@@ -52,7 +51,7 @@ public class UserService {
         TokenDto tokenDto = TokenDto.builder()
                 .accessToken(jwtTokenProvider.createAccessToken(findUser.getEmail(), findUser.getRole().name()))
                 .build();
-        jwtTokenProvider.createRefreshToken(findUser.getUser_id(), tokenDto.getAccessToken());
+        jwtTokenProvider.createRefreshToken(findUser.getUserId(), tokenDto.getAccessToken());
         return tokenDto;
     }
 

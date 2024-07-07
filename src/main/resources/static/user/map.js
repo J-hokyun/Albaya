@@ -129,9 +129,9 @@ function appendStoreToList(store, index) {
                 <img src="/images/${store.image_url}" alt="${store.store_name}" style="width: 100%; height: auto;" class="store-image">
             </div>
             <div class="col store-details">
-                <h4 class="store-name">${store.store_name}</h4>
-                <p class="store-salary">시급: ${store.store_salary}</p>
-                <p class="store-work-days">근무요일: ${store.work_days}</p>
+                <h4 class="store-name">${store.storeName}</h4>
+                <p class="store-salary">시급: ${store.storeSalary}</p>
+                <p class="store-work-days">근무요일: ${store.workDays}</p>
             </div>
         </div>
     `;

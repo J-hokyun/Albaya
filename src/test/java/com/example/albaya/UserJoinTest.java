@@ -27,8 +27,8 @@ public class UserJoinTest {
         UserJoinDto userJoinDto = UserJoinDto.builder()
                 .age(1)
                 .name("qwerqwer")
-                .real_password("Q!12345678")
-                .check_password("Q!12345678")
+                .realPassword("Q!12345678")
+                .checkPassword("Q!12345678")
                 .email("test1234@naver.com")
                 .build();
         userService.join(userJoinDto);
@@ -44,8 +44,8 @@ public class UserJoinTest {
         UserJoinDto userJoinDto = UserJoinDto.builder()
                 .age(1)
                 .name("qwerqwer")
-                .real_password("Q!34567")
-                .check_password("Q!34567")
+                .realPassword("Q!34567")
+                .checkPassword("Q!34567")
                 .email("test1234@naver.com")
                 .build();
         CustomException exception = Assertions.assertThrows(CustomException.class, () -> {
@@ -60,8 +60,8 @@ public class UserJoinTest {
         UserJoinDto userJoinDto = UserJoinDto.builder()
                 .age(1)
                 .name("qwerqwer")
-                .real_password("Q!12345678")
-                .check_password("Q!1234567")
+                .realPassword("Q!12345678")
+                .checkPassword("Q!1234567")
                 .email("test1234@naver.com")
                 .build();
         CustomException exception = Assertions.assertThrows(CustomException.class, () -> {
@@ -78,8 +78,8 @@ public class UserJoinTest {
         UserJoinDto userJoinDto = UserJoinDto.builder()
                 .age(1)
                 .name("qwerqwer")
-                .real_password("Q!12345678")
-                .check_password("Q!12345678")
+                .realPassword("Q!12345678")
+                .checkPassword("Q!12345678")
                 .email("test123naver.com")
                 .build();
 
@@ -96,8 +96,8 @@ public class UserJoinTest {
         UserJoinDto userJoinDto = UserJoinDto.builder()
                 .age(1)
                 .name("qwerqwer")
-                .real_password("Q!12345678")
-                .check_password("Q!12345678")
+                .realPassword("Q!12345678")
+                .checkPassword("Q!12345678")
                 .email("test1234@naver.com")
                 .build();
         userService.join(userJoinDto);

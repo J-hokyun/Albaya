@@ -31,8 +31,8 @@ public class UserLoginTest {
         UserJoinDto userJoinDto = UserJoinDto.builder()
                 .age(1)
                 .name("qwerqwer")
-                .real_password("Q!12345678")
-                .check_password("Q!12345678")
+                .realPassword("Q!12345678")
+                .checkPassword("Q!12345678")
                 .email("test1234@naver.com")
                 .build();
         userService.join(userJoinDto);
@@ -56,8 +56,8 @@ public class UserLoginTest {
         UserJoinDto userJoinDto = UserJoinDto.builder()
                 .age(1)
                 .name("qwerqwer")
-                .real_password("Q!12345678")
-                .check_password("Q!12345678")
+                .realPassword("Q!12345678")
+                .checkPassword("Q!12345678")
                 .email("test1234@naver.com")
                 .build();
         userService.join(userJoinDto);
@@ -79,8 +79,8 @@ public class UserLoginTest {
         UserJoinDto userJoinDto = UserJoinDto.builder()
                 .age(1)
                 .name("qwerqwer")
-                .real_password("Q!12345678")
-                .check_password("Q!12345678")
+                .realPassword("Q!12345678")
+                .checkPassword("Q!12345678")
                 .email("test1234@naver.com")
                 .build();
         userService.join(userJoinDto);
