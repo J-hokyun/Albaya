@@ -32,7 +32,7 @@ public class Store {
     private String storeName;
 
     @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<StorePictureUrl> storePictureUrlList = new ArrayList<>();
+    private List<StoreImageUrl> storeImageUrlList = new ArrayList<>();
 
     @Column(nullable = false, name = "area_lat")
     private double areaLat;

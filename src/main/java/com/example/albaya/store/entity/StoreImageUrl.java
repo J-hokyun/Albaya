@@ -6,8 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
-public class StorePictureUrl {
+public class StoreImageUrl {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "store_picture_id")

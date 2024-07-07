@@ -2,7 +2,7 @@ package com.example.albaya.store.dto;
 
 import com.example.albaya.enums.WorkType;
 import com.example.albaya.store.entity.Store;
-import com.example.albaya.store.entity.StorePictureUrl;
+import com.example.albaya.store.entity.StoreImageUrl;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ public class StoreFindResultDto {
     public double areaLat;
     public double areaLng;
     public int storeSalary;
-    public List<StorePictureUrl> storePictureUrlList;
+    public List<StoreImageUrl> storeImageUrlList;
     public String workDays;
     public LocalDateTime startTime;
     public LocalDateTime endTime;
@@ -34,7 +34,7 @@ public class StoreFindResultDto {
                 .areaLat(store.getAreaLat())
                 .areaLng(store.getAreaLng())
                 .storeSalary(store.getStoreSalary())
-                .storePictureUrlList(store.getStorePictureUrlList())
+                .storeImageUrlList(store.getStoreImageUrlList())
                 .workDays(store.getWorkDays())
                 .startTime(store.getStartTime())
                 .endTime(store.getEndTime())
