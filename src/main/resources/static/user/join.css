@@ -12,3 +12,43 @@ display: none;
 color:#6A82FB;
 display: none;
 }
+
+
+body {
+background-color: #f8f9fa;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+.signup-container {
+background-color: white;
+padding: 40px;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+width: 500px;
+max-width: 100%;
+}
+.signup-container h1 {
+font-size: 24px;
+margin-bottom: 20px;
+text-align: center;
+}
+.signup-container .form-group {
+margin-bottom: 25px;
+}
+.signup-container .btn {
+width: 100%;
+margin-bottom: 15px;
+}
+.signup-container .id_ok, .signup-container .id_already, .signup-container .not_email {
+display: none;
+font-size: 0.875em;
+margin-top: 5px;
+}
+.signup-container .id_ok {
+color: green;
+}
+.signup-container .id_already, .signup-container .not_email {
+color: red;
+}

@@ -5,81 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .signup-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 500px;
-            max-width: 100%;
-        }
-        .signup-container h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .signup-container .form-group {
-            margin-bottom: 25px;
-        }
-        .signup-container .btn {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        .signup-container .id_ok, .signup-container .id_already, .signup-container .not_email {
-            display: none;
-            font-size: 0.875em;
-            margin-top: 5px;
-        }
-        .signup-container .id_ok {
-            color: green;
-        }
-        .signup-container .id_already, .signup-container .not_email {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="/user/join.css"/>
 </head>
 <body>
-<div class="signup-container">
-    <h1>회원가입</h1>
-    <form th:action="@{/join}" th:method="post" th:object="${joinDto}">
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" th:field="*{email}" required>
-            <button type="button" class="btn btn-secondary mt-2" onclick="checkId()">중복확인</button>
-            <span class="id_ok">사용 가능한 이메일 입니다.</span>
-            <span class="id_already">사용중인 이메일 입니다.</span>
-            <span class="not_email">올바른 이메일을 입력하여 주세요.</span>
-        </div>
-        <div class="form-group">
-            <label for="real_password">비밀번호</label>
-            <input type="password" class="form-control" id="real_password" th:field="*{real_password}" required>
-        </div>
-        <div class="form-group">
-            <label for="check_password">비밀번호확인</label>
-            <input type="password" class="form-control" id="check_password" th:field="*{check_password}" required>
-        </div>
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" th:field="*{name}" required>
-        </div>
-        <div class="form-group">
-            <label for="age">Age:</label>
-            <input type="number" class="form-control" id="age" th:field="*{age}" required>
-        </div>
-        <button type="submit" class="btn btn-primary">가입하기</button>
-    </form>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script>
+    <div class="signup-container">
+        <h1>회원가입</h1>
+        <form th:action="@{/join}" th:method="post" th:object="${joinDto}">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                <button type="button" class="btn btn-secondary mt-2" onclick="checkId()">중복확인</button>
+                <span class="id_ok">사용 가능한 이메일 입니다.</span>
+                <span class="id_already">사용중인 이메일 입니다.</span>
+                <span class="not_email">올바른 이메일을 입력하여 주세요.</span>
+            </div>
+            <div class="form-group">
+                <label for="real_password">비밀번호</label>
+                <input type="password" class="form-control" id="real_password" th:field="*{real_password}" required>
+            </div>
+            <div class="form-group">
+                <label for="check_password">비밀번호확인</label>
+                <input type="password" class="form-control" id="check_password" th:field="*{check_password}" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" class="form-control" id="age" th:field="*{age}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">가입하기</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
         $(document).ready(function() {
             let message = "[[${msg}]]";
             if (message != "") {
@@ -99,13 +59,13 @@
                         $('.id_already').css("display", "none");
                         $('.not_email').css("display", "none");
                     } else if (cnt == 1) {
-                        $('.id_already').css("display", "none");
                         $('.id_ok').css("display", "none");
-                        $('.not_email').css("display", "inline-block");
-                    } else {
                         $('.id_already').css("display", "inline-block");
-                        $('.id_ok').css("display", "none");
                         $('.not_email').css("display", "none");
+                    } else {
+                        $('.id_ok').css("display", "none");
+                        $('.id_already').css("display", "none");
+                        $('.not_email').css("display", "inline-block");
                     }
                 },
                 error: function() {

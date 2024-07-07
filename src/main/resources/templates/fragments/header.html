@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="headerFragment">
+    <link rel="stylesheet" href="/fragments/header.css"/>
     <div class="container-fluid text-center head-container" style="width: 100%;">
-        <div class="row justify-content-end" style="width: 80%; height:150px;">
-            <div class="col-10 d-flex align-items-center justify-content-start">
+        <div class="row justify-content-center align-items-center" style="width: 100%; height:200px;">
+            <div class="col-2 d-flex align-items-center justify-content-center">
                 <a th:href="@{/}">
-                    <img th:src="@{/images/logo.png}" class="img-fluid"  width="200px" height ="100px">
+                    <img th:src="@{/images/logo.png}" class="img-fluid" width="200px" height="auto"> <!-- Increased width -->
                 </a>
             </div>
 
-            <div class="col-1 d-flex align-items-center justify-content-center" th:if="${!informDto.isLoginStatus()}">
-                <a th:href="@{/login}"> <b>로그인</b></a>
+            <div class="col-8 d-flex align-items-center justify-content-center">
+                <div class="search-bar">
+                    <input type="text" placeholder="검색어를 입력하세요">
+                    <button type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="col-1 d-flex align-items-center justify-content-end" th:if="${informDto.isLoginStatus()}">
-                <b th:text="${informDto.getName()}">님</b>
-            </div>
+            <div class="col-2 d-flex align-items-center justify-content-center">
+                <div class="login-status" th:if="${!informDto.isLoginStatus()}">
+                    <a th:href="@{/login}"><b>로그인</b></a>
+                    <a th:href="@{/join}"><b>회원가입</b></a>
+                </div>
 
-            <div class="col-1 d-flex align-items-center justify-content-center" th:if="${informDto.isLoginStatus()}">
-                <a th:href="@{/logout}"> <b>로그아웃</b></a>
-            </div>
-        </div>
-        <div class ="row justify-content-end" style = "width: 80%; height:100px;">
-            <div class="col-1 d-flex flex-row-reverse">
-                <a th:href="@{/resume/register}"> <b>이력서 등록</b></a>
-            </div>
-            <div class="col-1 d-flex flex-row-reverse">
-                <a th:href="@{/jobpost/register}"> <b>채용 공고 등록</b></a>
+                <div class="user-info" th:if="${informDto.isLoginStatus()}">
+                    <b th:text="${informDto.getName()}">님</b>
+                    <a th:href="@{/logout}"><b>로그아웃</b></a>
+                </div>
             </div>
         </div>
     </div>
-    <link rel="stylesheet" href="/fragments/header.css"/>
 </th:block>
 </html>

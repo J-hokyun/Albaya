@@ -1,0 +1,35 @@
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    max-width: 100%;
+}
+.login-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.login-container p {
+    color: #6c757d;
+    text-align: center;
+}
+.login-container .form-group {
+    margin-bottom: 25px;
+}
+.login-container .btn {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.login-container .sns-buttons img {
+    width: 40px;
+    margin: 0 5px;
+}

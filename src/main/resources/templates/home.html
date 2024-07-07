@@ -3,8 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
 <th:block layout:fragment="content">
+    <link rel="stylesheet" href="/user/home.css"/>
+
     <div class="container-fluid text-center head-container" style="width: 100%;">
-        <div class="row justify-content-end" style="width: 80%;">
+        <div class="row d-flex justify-content-center" style="width: 100%;">
             <div class="col-3 d-flex align-items-center justify-content-start">
                 <div id="store-list"></div>
             </div>
@@ -17,13 +19,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/user/map.js}"></script>
     <script>
-        $(document).ready(function() {
-            let message = "[[${logoutMessage}]]";
-            if (message != "") {
-                alert(message);
-            }
-        });
-</script>
-    <link rel="stylesheet" href="/user/home.css"/>
+    $(document).ready(function() {
+        let message = "[[${logoutMessage}]]";
+        if (message != "") {
+            alert(message);
+        }
+    });
+    </script>
 </th:block>
 </html>
