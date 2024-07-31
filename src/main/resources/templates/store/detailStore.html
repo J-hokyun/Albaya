@@ -3,11 +3,15 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
 <th:block layout:fragment="content">
-    <div th:text="${storeDto.store_name}"></div>
-    <div th:text="${storeDto.store_id}"></div>
-    <div>
-        <img th:src="@{/images/} + ${storeDto.image_url}" class="img-fluid"  width="200px" height ="120px">
+    <div th:text="${storeDto.storeName}"></div>
+    <div th:text="${storeDto.storeId}"></div>
+
+
+
+    <div th:each = "imageUrl : ${storeDto.storeImageUrlList}">
+        <img th:src="${imageUrl}" class="img-fluid"  width="200px" height ="120px">
     </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </th:block>

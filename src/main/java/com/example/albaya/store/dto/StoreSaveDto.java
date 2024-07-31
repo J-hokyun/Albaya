@@ -2,42 +2,54 @@ package com.example.albaya.store.dto;
 
 import com.example.albaya.enums.WorkType;
 import com.example.albaya.store.entity.Store;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@ToString
 public class StoreSaveDto {
-
     private String storeName;
-    private double areaLat;
-    private double areaLng;
+    private String address;
     private int storeSalary;
     private String workDays;
     private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private WorkType type;
+    private String type;
+    private List<MultipartFile> storeImageFiles;
 
+
+    @Override
+    public String toString() {
+        return "StoreUploadDto{" +
+                "storeName='" + storeName + '\'' +
+                ", address='" + address + '\'' +
+                ", storeSalary=" + storeSalary +
+                ", workDays='" + workDays + '\'' +
+                ", startTime=" + startTime +
+                ", type='" + type + '\'' +
+                ", imageFilesCount=" + storeImageFiles.size() +
+                '}';
+    }
 
     public Store toEntity(){
-        return Store.builder()
-                .storeName(storeName)
-                .areaLat(areaLat)
-                .areaLng(areaLng)
-                .storeSalary(storeSalary)
-                .workDays(workDays)
-                .startTime(startTime)
-                .endTime(endTime)
-                .type(type)
+        Store store = Store.builder()
+                .storeName(this.storeName)
+                .storeSalary(this.storeSalary)
+                .workDays(this.workDays)
+                .startTime(this.startTime)
+                .endTime(LocalDateTime.now())
                 .createdDate(LocalDateTime.now())
                 .build();
 
+        if (this.type.equals("FULL"))
+            store.setType(WorkType.FULL);
+        else
+            store.setType(WorkType.PART);
+
+        return store;
     }
 }
-

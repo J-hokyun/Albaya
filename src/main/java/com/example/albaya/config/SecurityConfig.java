@@ -26,8 +26,13 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http.authorizeHttpRequests((authorizeHttpRequests) ->
-                        authorizeHttpRequests.requestMatchers("/**").permitAll());
+        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers("/owner/**").hasAnyAuthority("ROLE_OWNER", "ROLE_ADMIN")
+                .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_OWNER", "ROLE_ADMIN")
+                .requestMatchers("/**").permitAll() // 모든 사용자 접근 가능
+                .anyRequest().authenticated()); // 기타 모든 요청은 인증 필요
+
         http.csrf((csrf) -> csrf.disable());
         http.cors(Customizer.withDefaults());
         http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(

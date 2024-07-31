@@ -2,6 +2,7 @@ package com.example.albaya.user.entity;
 
 import com.example.albaya.enums.Role;
 import com.example.albaya.store.entity.Owner;
+import com.example.albaya.store.entity.Store;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,6 +32,9 @@ public class User implements UserDetails {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id")
     private Owner owner;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Store> storeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserSchool> userSchoolList = new ArrayList<>();
@@ -65,7 +69,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
-        return Collections.singletonList(new SimpleGrantedAuthority(role.name()));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override

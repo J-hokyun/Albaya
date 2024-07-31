@@ -21,9 +21,6 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long owner_id;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Store> storeList = new ArrayList<>();
-
     @Column(length = 50, nullable = false)
     private String store_code;
 

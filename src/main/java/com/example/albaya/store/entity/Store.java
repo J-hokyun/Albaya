@@ -1,6 +1,7 @@
 package com.example.albaya.store.entity;
 
 import com.example.albaya.enums.WorkType;
+import com.example.albaya.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,8 +26,8 @@ public class Store {
     private Long storeId;
 
     @ManyToOne
-    @JoinColumn(name ="owner_id")
-    private Owner owner;
+    @JoinColumn(name ="user_id")
+    private User user;
 
     @Column(length = 100, nullable = false, name = "store_name")
     private String storeName;
@@ -53,7 +54,7 @@ public class Store {
     private LocalDateTime endTime;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type")
+    @Column(name = "type", length = 10)
     private WorkType type;
 
     @Column(nullable = false, name = "created_date")
@@ -61,4 +62,22 @@ public class Store {
 
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "storeId=" + storeId +
+                ", user=" + user +
+                ", storeName='" + storeName + '\'' +
+                ", areaLat=" + areaLat +
+                ", areaLng=" + areaLng +
+                ", storeSalary=" + storeSalary +
+                ", workDays='" + workDays + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", type=" + type +
+                ", createdDate=" + createdDate +
+                ", updatedDate=" + updatedDate +
+                '}';
+    }
 }

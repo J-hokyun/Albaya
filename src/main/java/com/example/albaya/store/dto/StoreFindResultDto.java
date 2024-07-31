@@ -6,6 +6,7 @@ import com.example.albaya.store.entity.StoreImageUrl;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -13,17 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 public class StoreFindResultDto {
     public Long storeId;
     public String storeName;
     public double areaLat;
     public double areaLng;
     public int storeSalary;
-    public List<StoreImageUrl> storeImageUrlList;
+    public List<String> storeImageUrlList;
     public String workDays;
     public LocalDateTime startTime;
-    public LocalDateTime endTime;
     public WorkType type;
 
 
@@ -34,12 +33,18 @@ public class StoreFindResultDto {
                 .areaLat(store.getAreaLat())
                 .areaLng(store.getAreaLng())
                 .storeSalary(store.getStoreSalary())
-                .storeImageUrlList(store.getStoreImageUrlList())
                 .workDays(store.getWorkDays())
                 .startTime(store.getStartTime())
-                .endTime(store.getEndTime())
                 .type(store.getType())
+                .storeImageUrlList(new ArrayList<>())
                 .build();
     }
 
+    @Override
+    public String toString() {
+        return "StoreFindResultDto{" +
+                "storeId=" + storeId +
+                ", storeName='" + storeName + '\'' +
+                '}';
+    }
 }

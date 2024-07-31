@@ -13,6 +13,7 @@ public enum StatusCode {
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "입력값이 유효하지 않습니다."),
     INVALID_EMAIL(HttpStatus.BAD_REQUEST, "이메일이 유효하지 않습니다."),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 유효하지 않습니다."),
+    IMAGE_DUPLICATE(HttpStatus.BAD_REQUEST, "중복되는 이미지 입니다."),
 
 
     //401

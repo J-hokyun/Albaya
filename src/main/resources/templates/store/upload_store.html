@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Registration</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 2rem;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 2rem;
+            background: #f7f7f7;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-title {
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="form-container">
+        <div class="form-title">채용 공고 등록하기</div>
+        <form method="post" action="/owner/upload" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="storeName">Store Name</label>
+                <input type="text" class="form-control" id="storeName" name="storeName" required>
+            </div>
+            <div class="form-group">
+                <label for="storeSalary">Store Salary</label>
+                <input type="number" class="form-control" id="storeSalary" name="storeSalary" required>
+            </div>
+            <div class="form-group">
+                <label for="workDays">Work Days</label>
+                <input type="text" class="form-control" id="workDays" name="workDays" required>
+            </div>
+            <div class="form-group">
+                <label for="startTime">Start Time</label>
+                <input type="datetime-local" class="form-control" id="startTime" name="startTime" required>
+            </div>
+            <div class="form-group">
+                <label for="type">Work Type</label>
+                <select class="form-control" id="type" name="type" required>
+                    <option value="">Select Work Type</option>
+                    <option value="FULL">정규직</option>
+                    <option value="PART">아르바이트</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="storeImageFiles">Store Images</label>
+                <input type="file" class="form-control-file" id="storeImageFiles" name="storeImageFiles" multiple>
+            </div>
+            <div class="form-group">
+                <label for="postcode">우편번호</label>
+                <input type="text" class="form-control" id="postcode" name="postcode" placeholder="우편번호">
+                <input type="button" class="btn btn-secondary btn-block" onclick="execDaumPostcode()" value="우편번호 찾기">
+            </div>
+            <div class="form-group">
+                <label for="address">주소</label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="주소">
+            </div>
+            <div class="form-group">
+                <label for="detailAddress">상세주소</label>
+                <input type="text" class="form-control" id="detailAddress" name="detailAddress" placeholder="상세주소">
+            </div>
+            <div class="form-group">
+                <label for="extraAddress">참고항목</label>
+                <input type="text" class="form-control" id="extraAddress" name="extraAddress" placeholder="참고항목">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Register Store</button>
+        </form>
+
+        <a href="javascript:void(0);" onclick="execDaumPostcode()">
+            <div>주소 검색</div>
+        </a>
+    </div>
+</div>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = '';
+                var extraAddr = '';
+
+                if (data.userSelectedType === 'R') {
+                    addr = data.roadAddress;
+                } else {
+                    addr = data.jibunAddress;
+                }
+
+                if(data.userSelectedType === 'R'){
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    document.getElementById("extraAddress").value = extraAddr;
+                } else {
+                    document.getElementById("extraAddress").value = '';
+                }
+
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
+                document.getElementById("detailAddress").focus();
+
+                console.log('addr:', addr);
+            }
+        }).open();
+    }
+
+    function getCoordinate(addr){
+        var kakaoApiKey = /*[[${kakaoApiKey}]]*/'';
+        $.ajax({
+                url: `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`,
+                type: 'GET',
+                headers: {
+                    'Authorization': `KakaoAK ${kakaoApiKey}`
+                },
+                success: function(data) {
+                    if (data.documents && data.documents.length > 0) {
+                        const areaLng = data.documents[0].x;
+                        const areaLat = data.documents[0].y;
+                        console.log('Longitude:', areaLng);
+                        console.log('Latitude:', areaLat);
+                    } else {
+                        console.error('No coordinates found for the address');
+                    }
+                },
+                error: function(error) {
+                    console.error('Error fetching coordinates:', error);
+                }
+            });
+    }
+
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
