@@ -2,8 +2,9 @@ package com.example.albaya;
 
 import com.example.albaya.enums.WorkType;
 import com.example.albaya.store.dto.CoordinateDto;
-import com.example.albaya.store.dto.StoreFindResultDto;
+import com.example.albaya.store.dto.DetailStoreDto;
 import com.example.albaya.store.dto.StoreSaveDto;
+import com.example.albaya.store.dto.StoreWithinCoordinatesDto;
 import com.example.albaya.store.entity.Store;
 import com.example.albaya.store.repository.StoreRepository;
 import com.example.albaya.store.service.StoreService;
@@ -42,7 +43,7 @@ public class StoreTest {
                 .build();
 
         Long storeId = storeService.saveStore(storeSaveDto);
-        StoreFindResultDto findStoreDto = storeService.findStore(storeId);
+        DetailStoreDto findStoreDto = storeService.detailStoreInform(storeId);
 
         Assertions.assertEquals(storeId, findStoreDto.getStoreId());
     }
@@ -115,8 +116,8 @@ public class StoreTest {
         storeRepository.save(store3);
         storeRepository.save(store4);
 
-        List<StoreFindResultDto>storeFindResultDtoList = storeService.findStoresWithinBounds(coordinateDto);
-        Assertions.assertEquals(storeFindResultDtoList.size(), 2);
+        List<StoreWithinCoordinatesDto>storeWithinCoordinatesDtos = storeService.findStoresWithinCoordinates(coordinateDto);
+        Assertions.assertEquals(storeWithinCoordinatesDtos.size(), 2);
     }
 
 

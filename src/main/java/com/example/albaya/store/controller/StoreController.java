@@ -1,8 +1,9 @@
 package com.example.albaya.store.controller;
 
 
-import com.example.albaya.store.dto.StoreFindResultDto;
+import com.example.albaya.store.dto.DetailStoreDto;
 import com.example.albaya.store.dto.StoreSaveDto;
+import com.example.albaya.store.dto.StoreWithinCoordinatesDto;
 import com.example.albaya.store.service.FileService;
 import com.example.albaya.store.service.StoreService;
 import com.example.albaya.store.dto.CoordinateDto;
@@ -32,12 +33,15 @@ public class StoreController {
 
     @GetMapping("/getStore")
     @ResponseBody
-    public ResponseEntity<List<StoreFindResultDto>> getStore(@RequestParam("northEastLat") double northEastLat, @RequestParam("northEastLng") double northEastLng,
+    public ResponseEntity<List<StoreWithinCoordinatesDto>> getStore(@RequestParam("northEastLat") double northEastLat, @RequestParam("northEastLng") double northEastLng,
                                                              @RequestParam("southWestLat") double southWestLat, @RequestParam("southWestLng") double southWestLng)
     {
         CoordinateDto coordinateDto = new CoordinateDto(northEastLat, northEastLng, southWestLat, southWestLng);
-        List<StoreFindResultDto> storeList = storeService.findStoresWithinBounds(coordinateDto);
-        return ResponseEntity.ok(storeList);
+        List<StoreWithinCoordinatesDto> storeWithinCoordinatesDtos = storeService.findStoresWithinCoordinates(coordinateDto);
+        for(StoreWithinCoordinatesDto dto : storeWithinCoordinatesDtos){
+            System.out.println(dto);
+        }
+        return ResponseEntity.ok(storeWithinCoordinatesDtos);
     }
 
     @GetMapping("/detailStore/{storeId}")
@@ -55,10 +59,10 @@ public class StoreController {
                     .name(user.getName())
                     .build();
         }
-        StoreFindResultDto storeFindResultDto = storeService.findStore(storeId);
+        DetailStoreDto detailStoreDto = storeService.detailStoreInform(storeId);
 
         model.addAttribute("informDto", userInformDto);
-        model.addAttribute("storeDto", storeFindResultDto);
+        model.addAttribute("storeDto", detailStoreDto);
         return "store/detailStore";
     }
 

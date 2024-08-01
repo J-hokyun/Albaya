@@ -2,8 +2,9 @@ package com.example.albaya.store.service;
 
 
 import com.example.albaya.store.dto.CoordinateDto;
-import com.example.albaya.store.dto.StoreFindResultDto;
+import com.example.albaya.store.dto.DetailStoreDto;
 import com.example.albaya.store.dto.StoreSaveDto;
+import com.example.albaya.store.dto.StoreWithinCoordinatesDto;
 import com.example.albaya.store.entity.Store;
 import com.example.albaya.store.entity.StoreImageUrl;
 import com.example.albaya.store.repository.StoreImageUrlRepository;
@@ -93,25 +94,20 @@ public class StoreService {
     }
 
     @Transactional(readOnly = true)
-    public StoreFindResultDto findStore(Long storeId){
+    public DetailStoreDto detailStoreInform(Long storeId){
         Store store = storeRepository.findByStoreId(storeId).orElse(null);
-        StoreFindResultDto storeFindResultDto = new StoreFindResultDto().toDto(store);
+        DetailStoreDto detailStoreDto = new DetailStoreDto(store);
 
-        if (store.getStoreImageUrlList() != null) {
-            for (StoreImageUrl storeImageUrl : store.getStoreImageUrlList()) {
-                String url = fileService.getFileUrl(storeImageUrl.getUrl());
-                storeFindResultDto.getStoreImageUrlList().add(url);
-            }
-        }
-
-        log.info("find storeId: " + storeId + " " + storeFindResultDto);
-        return storeFindResultDto;
+        log.info("find storeId: " + storeId + " " + detailStoreDto);
+        return detailStoreDto;
 
     }
 
 
     @Transactional
-    public List<StoreFindResultDto> findStoresWithinBounds(CoordinateDto coordinateDto) {
+    public List<StoreWithinCoordinatesDto> findStoresWithinCoordinates(CoordinateDto coordinateDto) {
+        List<StoreWithinCoordinatesDto> storeWithinCoordinatesDtos = new ArrayList<>();
+
         log.info("find store in " + coordinateDto);
         List<Store> storeList = storeRepository.findStoresWithinBounds(
                 coordinateDto.getNorthEastLat(),
@@ -120,12 +116,11 @@ public class StoreService {
                 coordinateDto.getSouthWestLng()
         );
 
-        List<StoreFindResultDto> storeFindResultDtoList = new ArrayList<>();
         for (Store store : storeList){
-            storeFindResultDtoList.add(new StoreFindResultDto().toDto(store));
+            StoreWithinCoordinatesDto storeWithinCoordinatesDto = new StoreWithinCoordinatesDto(store);
+            storeWithinCoordinatesDtos.add(storeWithinCoordinatesDto);
         }
-        log.info("result counting : " + storeFindResultDtoList.size());
-        return storeFindResultDtoList;
+        return storeWithinCoordinatesDtos;
     }
 
 }

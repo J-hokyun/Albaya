@@ -29,7 +29,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers("/owner/**").hasAnyAuthority("ROLE_OWNER", "ROLE_ADMIN")
-                .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_OWNER", "ROLE_ADMIN")
+                .requestMatchers("/member/**").hasAnyAuthority("ROLE_MEMBER", "ROLE_OWNER", "ROLE_ADMIN")
                 .requestMatchers("/**").permitAll() // 모든 사용자 접근 가능
                 .anyRequest().authenticated()); // 기타 모든 요청은 인증 필요
 

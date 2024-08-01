@@ -88,10 +88,10 @@ function getStore(map) {
             clearStoreList();
             response.forEach((store, index) => {
                 var marker = new naver.maps.Marker({
-                    position: new naver.maps.LatLng(store.area_lat, store.area_lng),
+                    position: new naver.maps.LatLng(store.areaLat, store.areaLng),
                     map: map
                 });
-                markers.push({marker: marker, storeId: store.store_id});
+                markers.push({marker: marker, storeId: store.storeId});
                 appendStoreToList(store, index);
             });
         },
@@ -124,9 +124,9 @@ function appendStoreToList(store, index) {
         <div class="row store-item" style="cursor: pointer;"
             onmouseover="highlightMarker(${index}, true)"
             onmouseout="highlightMarker(${index}, false)"
-            onclick="goToDetail(${store.store_id})">
+            onclick="goToDetail(${store.storeId})">
             <div class="col-6 store-image-container">
-                <img src="/images/${store.image_url}" alt="${store.store_name}" style="width: 100%; height: auto;" class="store-image">
+                <img src="${store.storeImageUrl}" alt="${store.storeName}" style="width: 100%; height: auto;" class="store-image">
             </div>
             <div class="col store-details">
                 <h4 class="store-name">${store.storeName}</h4>
