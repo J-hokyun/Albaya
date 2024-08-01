@@ -54,7 +54,7 @@ public class UserJoinDto {
                 .name(name)
                 .email(email)
                 .password(realPassword)
-                .role(Role.MEMBER)
+                .role(Role.MEMBER.name())
                 .createdDate(LocalDateTime.now())
                 .build();
 

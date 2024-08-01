@@ -4,6 +4,7 @@ import com.example.albaya.enums.WorkType;
 import com.example.albaya.store.entity.Store;
 import com.example.albaya.store.entity.StoreImageUrl;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 public class StoreWithinCoordinatesDto {
+
     private final Long storeId;
     private final String storeName;
     private final double areaLat;
@@ -33,7 +35,7 @@ public class StoreWithinCoordinatesDto {
         this.type = store.getType();
 
         List<StoreImageUrl> imageUrlList = store.getStoreImageUrlList();
-        if (!imageUrlList.isEmpty()){
+        if (imageUrlList!=null && !imageUrlList.isEmpty()){
             this.storeImageUrl = imageUrlList.get(0).getUrl(); // 추후에 썸네일 추가하면 수정
         }else{
             this.storeImageUrl = "https://albayabucket.s3.ap-northeast-2.amazonaws.com/default_store_image.png";

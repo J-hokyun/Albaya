@@ -105,7 +105,7 @@ public class JwtTokenProvider {
     public String reCreateAccessToken(String originAccessToken, RefreshToken refreshToken){
         Long userId = refreshToken.getId();
         User user = userRepository.findById(userId).orElse(null);
-        String newAccessToken = createAccessToken(user.getEmail(), user.getRole().name());
+        String newAccessToken = createAccessToken(user.getEmail(), user.getRole());
 
         removeRefreshToken(originAccessToken);
         refreshTokenRepository.save(new RefreshToken(userId, newAccessToken, refreshToken.getRefreshToken()));

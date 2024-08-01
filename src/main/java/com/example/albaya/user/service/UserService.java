@@ -49,7 +49,7 @@ public class UserService {
         }
 
         TokenDto tokenDto = TokenDto.builder()
-                .accessToken(jwtTokenProvider.createAccessToken(findUser.getEmail(), findUser.getRole().name()))
+                .accessToken(jwtTokenProvider.createAccessToken(findUser.getEmail(), findUser.getRole()))
                 .build();
         jwtTokenProvider.createRefreshToken(findUser.getUserId(), tokenDto.getAccessToken());
         return tokenDto;

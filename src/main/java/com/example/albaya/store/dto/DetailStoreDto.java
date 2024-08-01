@@ -4,6 +4,7 @@ import com.example.albaya.enums.WorkType;
 import com.example.albaya.store.entity.Store;
 import com.example.albaya.store.entity.StoreImageUrl;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,6 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 public class DetailStoreDto {
+
+    @Value("${default_store_image_url}")
+    private String default_store_image_url;
     private final Long storeId;
     private final String storeName;
     private final double areaLat;
@@ -37,7 +41,7 @@ public class DetailStoreDto {
         this.storeImageUrlList = new ArrayList<>();
 
         List<StoreImageUrl> imageUrlList = store.getStoreImageUrlList();
-        if (!imageUrlList.isEmpty()){
+        if (imageUrlList!=null && !imageUrlList.isEmpty()){
             for (StoreImageUrl storeImageUrl : imageUrlList){
                 this.storeImageUrlList.add(storeImageUrl.getUrl());
             }

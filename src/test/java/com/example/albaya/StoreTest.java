@@ -30,8 +30,8 @@ public class StoreTest {
     private StoreRepository storeRepository;
 
     @Test
-    @DisplayName("Find Store Test using storeId")
-    public void findStoreUsingStoreId(){
+    @DisplayName("Find Store's information using storeId test")
+    public void findStoreInformUsingStoreId(){
         StoreSaveDto storeSaveDto = StoreSaveDto.builder()
                 .storeName("storeTestName1")
                 .address("서울특별시 종로구 세종대로 172")
