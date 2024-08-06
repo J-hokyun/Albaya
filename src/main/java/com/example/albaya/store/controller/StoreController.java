@@ -67,14 +67,14 @@ public class StoreController {
     }
 
 
-    @GetMapping("/owner/upload")
+    @GetMapping("/owner/upload_store")
     public String showUploadForm(Model model) {
         model.addAttribute("uploadDto", new StoreSaveDto());
         model.addAttribute("kakaoApiKey", kakaoApiKey);
         return "store/upload_store";
     }
 
-    @PostMapping("/owner/upload")
+    @PostMapping("/owner/upload_store")
     public String handleFileUpload(StoreSaveDto storeSaveDto) {
         log.info("request upload Store");
 

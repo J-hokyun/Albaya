@@ -13,4 +13,5 @@ import lombok.Setter;
 public class UserInformDto {
     private boolean loginStatus;
     private String name;
+    private String role;
 }

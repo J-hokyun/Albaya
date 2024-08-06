@@ -29,6 +29,12 @@
                     <b th:text="${informDto.getName()}">님</b>
                     <a th:href="@{/logout}"><b>로그아웃</b></a>
                 </div>
+                <div>
+                    <a th:href = "@{/member/write_resume}">이력서 등록</a>
+                </div>
+                <div>
+                    <a th:href = "@{/owner/upload_store}">채용 공고 등록</a>
+                </div>
             </div>
         </div>
     </div>

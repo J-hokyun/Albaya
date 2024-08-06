@@ -44,6 +44,7 @@ public class MainController {
             userInformDto = UserInformDto.builder()
                     .loginStatus(true)
                     .name(user.getName())
+                    .role(user.getRole())
                     .build();
         }
         model.addAttribute("informDto", userInformDto);
