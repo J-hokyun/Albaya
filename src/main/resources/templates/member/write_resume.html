@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+  <th:block layout:fragment="content">
+    <link rel="stylesheet" href="/member/write_resume.css"/>
+
+    <form method="post" action="/member/write_resume" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="userName">이름*</label>
+        <input type="text" id="userName" name="name" th:value="${dto.getName()}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="userEmail">이메일*</label>
+        <input type="text" id="userEmail" name="email" th:value="${dto.getEmail()}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="title">이력서 제목*</label>
+        <input type="text" id="title" name="title" placeholder="나를 표현할 한마디를 적어보세요.">
+      </div>
+      <div class="form-group">
+        <label for="education">학력*</label>
+        <select id="education" name="education">
+          <option value="대학원">대학원</option>
+          <option value="대학교(4년제)">대학교(4년제)</option>
+          <option value="대학교(2년제)">대학교(2년제)</option>
+          <option value="고등학교">고등학교</option>
+          <option value="중학교">중학교</option>
+          <option value="초등학교">초등학교</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>희망근무지*</label>
+        <div class="regions" id="regions">
+          <div class="city-tab" data-city="서울">서울</div>
+          <div class="city-tab" data-city="부산">부산</div>
+          <div class="city-tab" data-city="대구">대구</div>
+          <div class="city-tab" data-city="인천">인천</div>
+          <div class="city-tab" data-city="광주">광주</div>
+          <div class="city-tab" data-city="대전">대전</div>
+          <div class="city-tab" data-city="울산">울산</div>
+          <div class="city-tab" data-city="세종">세종</div>
+          <div class="city-tab" data-city="경기도">경기도</div>
+          <div class="city-tab" data-city="강원도">강원도</div>
+          <div class="city-tab" data-city="충청북도">충청북도</div>
+          <div class="city-tab" data-city="충청남도">충청남도</div>
+          <div class="city-tab" data-city="전라북도">전라북도</div>
+          <div class="city-tab" data-city="전라남도">전라남도</div>
+          <div class="city-tab" data-city="경상북도">경상북도</div>
+          <div class="city-tab" data-city="경상남도">경상남도</div>
+          <div class="city-tab" data-city="제주도">제주도</div>
+        </div>
+        <div class="districts" id="districts"></div>
+          <div id="selected-regions">
+            <input type="hidden" id="desiredLocationList" name="desiredLocationList">
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="employmentType">근무형태*</label>
+        <div>
+          <input type="radio" id="part-time" name="employmentType" value="아르바이트" checked>
+          <label for="part-time">아르바이트</label>
+          <input type="radio" id="contract" name="employmentType" value="계약직">
+          <label for="contract">계약직</label>
+          <input type="radio" id="full-time" name="employmentType" value="정규직">
+          <label for="full-time">정규직</label>
+          <input type="radio" id="intern" name="employmentType" value="인턴십">
+          <label for="intern">인턴십</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="workDuration">근무기간*</label>
+        <select id="workDuration" name="workDuration">
+          <option value="3개월 이하">3개월 이하</option>
+          <option value="3개월~6개월">3개월~6개월</option>
+          <option value="6개월~1년">6개월~1년</option>
+          <option value="1년 이상">1년 이상</option>
+          <option value="기간무관">기간무관</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="workDays">근무요일*</label>
+        <div>
+          <input type="radio" id="weekday" name="workDays" value="평일">
+          <label for="weekday">평일</label>
+          <input type="radio" id="weekend" name="workDays" value="주말" checked>
+          <label for="weekend">주말</label>
+          <input type="radio" id="anyday" name="workDays" value="요일무관">
+          <label for="anyday">요일무관</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="introduce">자기소개</label>
+        <textarea id="introduce" name="introduce" rows="4" placeholder="자신을 소개해주세요."></textarea>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="disability" name="disability">
+        <label for="disability">장애 여부</label>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="militaryStatus" name="militaryStatus">
+        <label for="militaryStatus">병역 여부</label>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="veteranStatus" name="veteranStatus">
+        <label for="veteranStatus">보훈 여부</label>
+      </div>
+      <button type="submit">저장</button>
+    </form>
+    <script type="text/javascript" th:src="@{/member/write_resume.js}"></script>
+  </th:block>
+</html>
+
+

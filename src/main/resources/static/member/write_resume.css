@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-group .regions,
+.form-group > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.form-group .regions label,
+.form-group > div label {
+    margin-right: 10px;
+    font-weight: normal;
+}
+
+.form-group .regions input[type="checkbox"],
+.form-group input[type="radio"],
+.form-group input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.form-group .regions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.form-group .city-tab {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-group .city-tab.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.form-group .districts {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.form-group .districts label {
+    margin-right: 10px;
+    font-weight: normal;
+}
+
+.form-group .districts input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+#selected-regions {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.selected-region {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+}
+
+.selected-region .remove {
+    margin-left: 10px;
+    cursor: pointer;
+}
+

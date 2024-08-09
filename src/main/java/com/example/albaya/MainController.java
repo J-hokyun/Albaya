@@ -47,7 +47,8 @@ public class MainController {
                     .role(user.getRole())
                     .build();
         }
-        model.addAttribute("informDto", userInformDto);
+
+        model.addAttribute("dto", userInformDto);
         model.addAttribute("naverMapClientId", naverMapClientId);
         return "home";
     }

@@ -1,6 +1,6 @@
 package com.example.albaya.user.entity;
 
-import com.example.albaya.enums.Role;
+import com.example.albaya.member.entity.Resume;
 import com.example.albaya.store.entity.Owner;
 import com.example.albaya.store.entity.Store;
 import com.fasterxml.jackson.annotation.JsonProperty;
